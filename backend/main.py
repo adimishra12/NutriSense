@@ -5,6 +5,7 @@ from database import Base, engine
 from auth import router as auth_router
 from health_profile import router as health_profile_router
 from food_diary import router as food_diary_router
+from lab_results import router as lab_results_router
 import models
 
 app = FastAPI(title="NutriSense API")
@@ -25,6 +26,7 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(health_profile_router)
 app.include_router(food_diary_router)
+app.include_router(lab_results_router)
 
 @app.get("/")
 def root():

@@ -6,7 +6,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  width: 180px;
+  width: 270px;
   height: 100vh;
   background: #1a3a2a;
   display: flex;
@@ -18,17 +18,18 @@
 /* ── Brand ── */
 .sidebar-brand {
   margin-bottom: 36px;
+  padding: 0 8px;
 }
 
 .sidebar-brand h1 {
-  font-size: 22px;
+  font-size: 26px;
   font-weight: 800;
   color: #fff;
   letter-spacing: -0.3px;
 }
 
 .sidebar-username {
-  font-size: 13px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.55);
   margin-top: 4px;
   font-weight: 400;
@@ -45,12 +46,12 @@
 .sidebar-link {
   display: block;
   width: 100%;
-  padding: 10px 14px;
+  padding: 12px 18px;
   border: none;
   border-radius: 8px;
   background: transparent;
   color: rgba(255, 255, 255, 0.7);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   text-align: left;
   cursor: pointer;
@@ -75,12 +76,12 @@
 
 .sidebar-signout {
   width: 100%;
-  padding: 11px 14px;
+  padding: 12px 18px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 8px;
   background: transparent;
   color: #fff;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
@@ -93,14 +94,15 @@
 
 /* ── Layout helper for pages using sidebar ── */
 .page-with-sidebar {
-  margin-left: 180px;
+  margin-left: 270px;
   min-height: 100vh;
-  background: #f9fafb;
+  background: linear-gradient(135deg, #eef7f0, #f8fbf9);
 }
 
 .page-content {
-  padding: 40px 48px;
-  max-width: 1100px;
+  padding: 40px 60px;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
 .page-title {

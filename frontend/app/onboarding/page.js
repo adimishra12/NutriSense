@@ -108,7 +108,7 @@ export default function Onboarding() {
 
   return (
     <div className="ob-page">
-      <div className="ob-card">
+      <div className="ob-container">
         {/* ── Header ── */}
         <p className="ob-brand">NutriSense</p>
         <h1 className="ob-title">Your health profile</h1>

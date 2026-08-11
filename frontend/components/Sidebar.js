@@ -7,6 +7,11 @@ import "../styles/sidebar.css";
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Food diary", href: "/diary" },
+  { label: "Symptoms", href: "/symptoms" },
+  { label: "Lab results", href: "/lab-results" },
+  { label: "Assessment", href: "/assessment" },
+  { label: "Meal plan", href: "/meal-plan" },
+  { label: "Progress", href: "/progress" },
 ];
 
 export default function Sidebar() {
@@ -21,8 +26,7 @@ export default function Sidebar() {
         <h1>NutriSense</h1>
         {user && (
           <p className="sidebar-username">
-            {user.first_name}
-            {user.last_name ? ` ${user.last_name}` : ""}
+            {user.email || user.first_name}
           </p>
         )}
       </div>

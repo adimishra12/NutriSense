@@ -1,0 +1,128 @@
+.lr-custom-content {
+  padding: 40px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.lr-page-title {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #1a3a2a;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.lr-page-subtitle {
+  font-size: 16px;
+  color: #6b7280;
+  margin-bottom: 32px;
+}
+
+.lr-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  border: 1px solid #f0f0f0;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+  width: 100%;
+}
+
+/* Form Layout */
+.lr-row {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+
+.lr-row > * {
+  flex: 1;
+}
+
+.lr-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.lr-field label {
+  color: #1a3a2a;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.lr-field input {
+  padding: 14px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 16px;
+  font-family: inherit;
+  background-color: #fff;
+  color: #111827;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -moz-appearance: textfield;
+}
+
+/* Hide arrows for type=number (except when hovering over input, or just keep them hidden entirely as requested) */
+/* Actually, the user says the target DOES show them or maybe doesn't depending on interpretation. "if Calcium is currently showing spinner arrows... use appropriate CSS to hide...". Target DOES NOT show arrows on Hemoglobin, Serum Vitamin D, etc. We will hide them. */
+.lr-field input::-webkit-outer-spin-button,
+.lr-field input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.lr-field input:focus {
+  outline: none;
+  border-color: #1a3a2a;
+  box-shadow: 0 0 0 3px rgba(26, 58, 42, 0.08);
+}
+
+.lr-field input::placeholder {
+  color: #9ca3af;
+}
+
+/* Submit Button */
+.lr-submit {
+  width: 100%;
+  background-color: #1a3a2a;
+  color: #fff;
+  border: none;
+  border-radius: 30px; /* Pill shape */
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.lr-submit:hover:not(:disabled) {
+  background-color: #15302a;
+}
+
+.lr-submit:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.lr-submit:disabled {
+  background-color: #9ca3af;
+  color: #fff;
+  cursor: not-allowed;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .lr-custom-content {
+    padding: 24px;
+  }
+  
+  .lr-card {
+    padding: 24px;
+  }
+  
+  .lr-row {
+    flex-direction: column;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
+}

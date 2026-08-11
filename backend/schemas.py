@@ -127,3 +127,25 @@ class DiarySummary(BaseModel):
     avg_carbohydrates_g: float = 0
     avg_fat_g: float = 0
     avg_fiber_g: float = 0
+
+
+class LabResultRequest(BaseModel):
+    hemoglobin_g_dl: Optional[float] = None
+    serum_vitamin_d: Optional[float] = None
+    ferritin: Optional[float] = None
+    vitamin_b12: Optional[float] = None
+    calcium: Optional[float] = None
+
+
+class LabResultResponse(BaseModel):
+    id: int
+    user_id: int
+    hemoglobin_g_dl: Optional[float] = None
+    serum_vitamin_d: Optional[float] = None
+    ferritin: Optional[float] = None
+    vitamin_b12: Optional[float] = None
+    calcium: Optional[float] = None
+    updated_at: datetime
+
+    class Config:
+        from_attributes = True

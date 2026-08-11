@@ -1,38 +1,38 @@
 /* =========================
    ONBOARDING — single-page form
    Matches reference screenshot:
-   olive-green background, clean centered card,
-   pill-style dietary tags, dark green button
+   Soft light green/white gradient, minimal design (no card),
+   serif branding, and dense pill-style dietary tags
 ========================= */
 
 /* ── Page ── */
 .ob-page {
   min-height: 100vh;
-  background: #8a9a7e;
+  /* Soft light green/white background instead of solid olive */
+  background: linear-gradient(135deg, #eef7f0, #f8fbf9);
   display: flex;
-  align-items: center;
+  align-items: flex-start; /* Start near upper middle instead of strict center */
   justify-content: center;
-  padding: 40px 20px;
+  padding: 8vh 20px 40px;
 }
 
 .ob-loading {
-  color: #fff;
+  color: #1a3a2a;
   font-size: 16px;
+  align-items: center;
 }
 
-/* ── Card ── */
-.ob-card {
+/* ── Container (Replaces Card) ── */
+.ob-container {
   width: 100%;
   max-width: 580px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 44px 48px 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+  /* No background, no border, no shadow */
 }
 
 /* ── Header ── */
 .ob-brand {
-  font-size: 16px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 18px;
   font-weight: 700;
   color: #1a3a2a;
   margin-bottom: 2px;
@@ -40,16 +40,18 @@
 }
 
 .ob-title {
-  font-size: 30px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 34px;
   font-weight: 700;
   color: #1a3a2a;
   margin-bottom: 8px;
   line-height: 1.15;
+  letter-spacing: -0.5px;
 }
 
 .ob-subtitle {
   font-size: 15px;
-  color: #6b7280;
+  color: #4b5563; /* muted dark-gray/green */
   margin-bottom: 32px;
   line-height: 1.5;
 }
@@ -64,13 +66,13 @@
   font-size: 14px;
   font-weight: 600;
   color: #1a3a2a;
-  margin-bottom: 7px;
+  margin-bottom: 8px;
 }
 
 .ob-field input,
 .ob-field select {
   width: 100%;
-  padding: 12px 14px;
+  padding: 14px 16px; /* Approx 50px height */
   border: 1px solid #d1d5db;
   border-radius: 10px;
   font-size: 15px;
@@ -93,10 +95,20 @@
 
 .ob-field select {
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b7280' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a3a2a' stroke-width='2' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 14px center;
   padding-right: 36px;
+}
+
+/* Hide arrows for type=number */
+.ob-field input[type="number"]::-webkit-outer-spin-button,
+.ob-field input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.ob-field input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 /* ── Row (side by side fields) ── */
@@ -112,22 +124,24 @@
 /* ── Dietary pills ── */
 .ob-pills {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* Force one row on desktop */
   gap: 8px;
   margin-top: 2px;
 }
 
 .ob-pill {
-  padding: 8px 18px;
+  flex: 1; /* Stretch to fit if needed, or let them size naturally */
+  padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 100px;
   background: #fff;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: #374151;
   cursor: pointer;
   transition: all 0.2s;
   white-space: nowrap;
+  text-align: center;
 }
 
 .ob-pill:hover {
@@ -144,10 +158,10 @@
 /* ── Submit button ── */
 .ob-submit {
   width: 100%;
-  padding: 14px;
-  margin-top: 28px;
+  height: 55px; /* Approx 55px height */
+  margin-top: 16px; /* Moderate gap */
   border: none;
-  border-radius: 10px;
+  border-radius: 30px; /* Pill-like corners */
   background: #1a3a2a;
   color: #fff;
   font-size: 16px;
@@ -166,17 +180,14 @@
 
 .ob-submit:disabled {
   background: #9ca3af;
+  color: #fff;
   cursor: not-allowed;
 }
 
 /* ── Responsive ── */
 @media (max-width: 640px) {
   .ob-page {
-    padding: 24px 12px;
-  }
-
-  .ob-card {
-    padding: 32px 24px 28px;
+    padding: 6vh 16px 30px;
   }
 
   .ob-row {
@@ -185,6 +196,14 @@
   }
 
   .ob-title {
-    font-size: 24px;
+    font-size: 28px;
+  }
+  
+  .ob-pills {
+    flex-wrap: wrap; /* Allow wrapping on small screens */
+  }
+  
+  .ob-pill {
+    flex: auto; /* Let them fill space appropriately */
   }
 }
