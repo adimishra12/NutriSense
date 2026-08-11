@@ -104,7 +104,7 @@ export default function Diary() {
     setSubmitting(true);
     try {
       await api.post("/diary/entries", {
-        date,
+        entry_date: date,
         meal_type: mealType,
         food_name: selectedFood.name,
         portion_grams: parseFloat(portion),
