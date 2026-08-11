@@ -1,0 +1,185 @@
+/* =========================
+   DASHBOARD — sidebar layout
+   Matches reference screenshot:
+   diary status / wellness cards,
+   RDA progress bars
+========================= */
+
+/* ── Loading state ── */
+.dash-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+/* ── Top row: two cards side by side ── */
+.dash-top-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* ── Card ── */
+.dash-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 28px;
+}
+
+.dash-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a3a2a;
+  margin-bottom: 12px;
+}
+
+.dash-card-metric {
+  font-size: 15px;
+  color: #374151;
+  margin-bottom: 18px;
+  line-height: 1.5;
+}
+
+.dash-card-metric strong {
+  font-weight: 700;
+}
+
+/* ── CTA buttons inside card ── */
+.dash-card-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.dash-btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.dash-btn.outline {
+  background: #fff;
+  border: 1px solid #1a3a2a;
+  color: #1a3a2a;
+}
+
+.dash-btn.outline:hover {
+  background: #f0fdf4;
+}
+
+.dash-btn.filled {
+  background: #1a3a2a;
+  border: 1px solid #1a3a2a;
+  color: #fff;
+}
+
+.dash-btn.filled:hover:not(:disabled) {
+  background: #15302a;
+}
+
+.dash-btn.filled:disabled {
+  background: #9ca3af;
+  border-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.dash-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+/* ── Wellness score placeholder ── */
+.dash-wellness-placeholder {
+  text-align: left;
+  color: #6b7280;
+}
+
+.dash-wellness-dash {
+  font-size: 28px;
+  font-weight: 700;
+  color: #111827;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.dash-wellness-placeholder p {
+  font-size: 14px;
+}
+
+/* ── RDA bars ── */
+.dash-rda-card {
+  padding: 28px;
+}
+
+.dash-rda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.dash-rda-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dash-rda-label {
+  width: 130px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  flex-shrink: 0;
+}
+
+.dash-rda-track {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.dash-rda-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  border-radius: 100px;
+  transition: width 0.6s ease;
+  min-width: 0;
+}
+
+.dash-rda-pct {
+  width: 40px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  color: #6b7280;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .dash-top-row {
+    grid-template-columns: 1fr;
+  }
+
+  .dash-card-actions {
+    flex-direction: column;
+  }
+
+  .dash-rda-label {
+    width: 100px;
+    font-size: 13px;
+  }
+
+  .dash-rda-pct {
+    width: 35px;
+    font-size: 12px;
+  }
+}
