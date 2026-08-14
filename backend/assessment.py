@@ -143,25 +143,38 @@ def run_assessment(
         raise HTTPException(
             status_code=400,
             detail=(
-                f"Assessment requires 7 complete days of meals (found {len(complete_dates)} complete day(s)). "
+                f"Assessment requires 7 consecutive complete days of meals (found {len(complete_dates)} complete day(s)). "
                 "Please complete all Breakfast, Lunch, Snack and Dinner entries before running the assessment."
             ),
         )
 
-    # Use the most recent 7 complete days
-    target_dates = complete_dates[-7:]
-
-    # Verify they are 7 consecutive calendar days
-    date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in target_dates]
-    for i in range(1, len(date_objs)):
-        if (date_objs[i] - date_objs[i - 1]).days != 1:
+    # Check for at least one 7-day consecutive streak
+    has_consecutive_streak = False
+    if len(complete_dates) >= 7:
+        date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in complete_dates]
+        current_streak = 1
+        for i in range(1, len(date_objs)):
+            if (date_objs[i] - date_objs[i - 1]).days == 1:
+                current_streak += 1
+                if current_streak >= 7:
+                    has_consecutive_streak = True
+                    break
+            else:
+                current_streak = 1
+                
+        # If no streak was found despite having 7+ days
+        if not has_consecutive_streak:
             raise HTTPException(
                 status_code=400,
                 detail=(
-                    "Assessment requires 7 consecutive complete days of meals. "
-                    "Your complete diary days have gaps. Please fill in all Breakfast, Lunch, Snack and Dinner entries for 7 consecutive days."
+                    "Assessment requires at least one 7-day consecutive streak of complete meals. "
+                    "Your complete diary days have gaps that prevent a 7-day streak. "
+                    "Please fill in all Breakfast, Lunch, Snack and Dinner entries for 7 consecutive days."
                 ),
             )
+
+    # Use all complete eligible days
+    target_dates = complete_dates
 
     # 2) Compute 7-day average nutrients ───────────────
     target_date_set = set(target_dates)

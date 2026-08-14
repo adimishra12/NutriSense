@@ -126,7 +126,7 @@ export default function AssessmentPage() {
           {/* ── Header bar ── */}
           <div className="assess-header">
             <span className="assess-model-info">
-              Random Forest model · 7 complete diary days required
+              Random Forest model · {assessment ? `${assessment.diary_days_used} complete diary days used · minimum 7 consecutive required` : "7 consecutive complete diary days required"}
             </span>
             <button
               className="assess-run-btn"
@@ -148,7 +148,7 @@ export default function AssessmentPage() {
               <div className="assess-empty-icon">🔬</div>
               <h2>No assessment yet</h2>
               <p>
-                Log 7 consecutive complete days of meals (Breakfast, Lunch,
+                Log at least 7 consecutive complete days of meals (Breakfast, Lunch,
                 Snack, Dinner) then click &ldquo;Run assessment&rdquo; to see
                 your deficiency risk analysis.
               </p>
