@@ -8,7 +8,7 @@
   left: 0;
   width: 270px;
   height: 100vh;
-  background: #1a3a2a;
+  background: #0f172a;
   display: flex;
   flex-direction: column;
   padding: 28px 16px 24px;
@@ -96,7 +96,7 @@
 .page-with-sidebar {
   margin-left: 270px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #eef7f0, #f8fbf9);
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
 }
 
 .page-content {
@@ -108,7 +108,7 @@
 .page-title {
   font-size: 28px;
   font-weight: 700;
-  color: #1a3a2a;
+  color: #0f172a;
   margin-bottom: 4px;
 }
 

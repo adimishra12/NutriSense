@@ -64,3 +64,7 @@ data/ifct2017/
 backend/data/usda_raw/
 backend/data/*.db
 backend/data/*.db.bak
+
+test_assessment.py
+
+files

@@ -43,15 +43,15 @@ def import_ifct():
             carbs = safe_float(row.get("Carbohydrate; choavldf"))
             fat = safe_float(row.get("Total Fat; fatce"))
             fiber = safe_float(row.get("Dietary Fiber; fibtg"))
-            iron = safe_float(row.get("Iron (Fe); fe"))
-            calcium = safe_float(row.get("Calcium (Ca); ca"))
-            vit_d = safe_float(row.get("Vitamin D; vitd"))
+            iron = safe_float(row.get("Iron (Fe); fe")) * 1000
+            calcium = safe_float(row.get("Calcium (Ca); ca")) * 1000
+            vit_d = safe_float(row.get("Vitamin D; vitd")) * 1000000
             vit_b12 = 0.0 # B12 generally not listed
-            folate = safe_float(row.get("Folates (B9); folsum"))
-            vit_a = safe_float(row.get("Vitamin A; vita"))
-            vit_c = safe_float(row.get("Vitamin C; vitc"))
-            magnesium = safe_float(row.get("Magnesium (Mg); mg"))
-            zinc = safe_float(row.get("Zinc (Zn); zn"))
+            folate = safe_float(row.get("Folates (B9); folsum")) * 1000000
+            vit_a = safe_float(row.get("Vitamin A; vita")) * 1000000
+            vit_c = safe_float(row.get("Vitamin C; vitc")) * 1000
+            magnesium = safe_float(row.get("Magnesium (Mg); mg")) * 1000
+            zinc = safe_float(row.get("Zinc (Zn); zn")) * 1000
             
             # Check if exists
             existing = db.query(FoodItem).filter_by(name=name, data_type="ifct").first()

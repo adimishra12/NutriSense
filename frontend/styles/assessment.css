@@ -1,0 +1,350 @@
+/* ============================================================
+   ASSESSMENT PAGE — pixel-perfect match to reference screenshot
+   ============================================================ */
+
+/* ── Top header bar ─────────────────────────────────── */
+.assess-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 28px;
+}
+
+.assess-model-info {
+  font-size: 14px;
+  color: #6b8f71;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.assess-run-btn {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.assess-run-btn:hover {
+  background: #14502e;
+  transform: translateY(-1px);
+}
+
+.assess-run-btn:active {
+  transform: translateY(0);
+}
+
+.assess-run-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Main two-column layout ─────────────────────────── */
+.assess-body {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ── Left: Deficiency risks card ────────────────────── */
+.assess-risks-card {
+  flex: 1;
+  min-width: 0;
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 28px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+}
+
+.assess-risks-heading {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 4px;
+}
+
+.assess-wellness {
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 24px;
+}
+
+.assess-wellness strong {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+/* ── Individual deficiency card ─────────────────────── */
+.assess-def-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.assess-def-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 18px 20px 14px;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.assess-def-card:hover {
+  border-color: #b4d4bc;
+  box-shadow: 0 2px 8px rgba(26, 58, 42, 0.06);
+}
+
+.assess-def-card.selected {
+  border-color: #3d8b5e;
+  box-shadow: 0 2px 8px rgba(26, 58, 42, 0.12);
+}
+
+/* Top row: nutrient name + bar + pct + badge */
+.assess-def-top {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.assess-def-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  min-width: 110px;
+}
+
+/* Progress bar */
+.assess-bar-track {
+  flex: 1;
+  height: 8px;
+  background: #e8ede9;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.assess-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
+
+/* Fill colours by risk */
+.assess-bar-fill.high {
+  background: #4a9a5e;
+}
+
+.assess-bar-fill.moderate {
+  background: #d4a843;
+}
+
+.assess-bar-fill.low {
+  background: #7cb88a;
+}
+
+/* Percentage + badge */
+.assess-def-pct {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+  min-width: 40px;
+  text-align: right;
+}
+
+.assess-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.assess-badge.high {
+  background: #fde8e8;
+  color: #b91c1c;
+}
+
+.assess-badge.moderate {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.assess-badge.low {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+/* Explanation pill */
+.assess-def-label {
+  display: inline-block;
+  background: #e6f4ea;
+  color: #2d6a3f;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 6px;
+  margin-top: 2px;
+}
+
+/* ── Right: Recommendation panel ────────────────────── */
+.assess-rec-panel {
+  width: 320px;
+  min-width: 280px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 20px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 40px;
+}
+
+.assess-rec-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.assess-rec-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.assess-rec-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f1f3;
+  gap: 10px;
+}
+
+.assess-rec-row:last-child {
+  border-bottom: none;
+}
+
+.assess-rec-name {
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.assess-rec-nutrients {
+  font-size: 12px;
+  color: #6b7280;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Scrollbar styling */
+.assess-rec-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.assess-rec-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.assess-rec-panel::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+/* ── Empty state ────────────────────────────────────── */
+.assess-empty {
+  text-align: center;
+  padding: 60px 30px;
+}
+
+.assess-empty-icon {
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+.assess-empty h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.assess-empty p {
+  font-size: 14px;
+  color: #6b7280;
+  max-width: 400px;
+  margin: 0 auto 24px;
+  line-height: 1.5;
+}
+
+/* ── Loading spinner ────────────────────────────────── */
+.assess-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.assess-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e8ede9;
+  border-top-color: #0f172a;
+  border-radius: 50%;
+  animation: assess-spin 0.7s linear infinite;
+}
+
+@keyframes assess-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .assess-body {
+    flex-direction: column;
+  }
+
+  .assess-rec-panel {
+    width: 100%;
+    max-height: 400px;
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .assess-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .assess-risks-card {
+    padding: 20px 16px;
+  }
+
+  .assess-def-top {
+    flex-wrap: wrap;
+  }
+
+  .assess-def-name {
+    min-width: 80px;
+  }
+}

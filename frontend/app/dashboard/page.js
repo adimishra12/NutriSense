@@ -83,7 +83,7 @@ export default function Dashboard() {
               <h2 className="dash-card-title">Diary status</h2>
               <p className="dash-card-metric">
                 <strong>{daysLogged}</strong> days logged
-                {daysLogged < 3 && " — need 3 to assess"}
+                {daysLogged < 7 && " — need 7 to assess"}
               </p>
               <div className="dash-card-actions">
                 <button
@@ -92,7 +92,11 @@ export default function Dashboard() {
                 >
                   Log a meal
                 </button>
-                <button className="dash-btn filled" disabled={daysLogged < 3}>
+                <button 
+                  className="dash-btn filled" 
+                  disabled={daysLogged < 7}
+                  onClick={() => router.push("/assessment")}
+                >
                   Run assessment
                 </button>
               </div>

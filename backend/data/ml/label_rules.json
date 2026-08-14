@@ -1,0 +1,12 @@
+{
+    "label_iron": "Lab: low Hb (Male<13 / Female<12) OR ferritin<30; else iron intake <8 mg",
+    "label_vitamin_d": "Lab: serum Vitamin D <50 nmol/L; else intake <15 mcg",
+    "label_vitamin_b12": "Vitamin B12 intake <2.4 mcg",
+    "label_calcium": "Calcium intake <1000 mg",
+    "label_folate": "Folate intake <400 mcg",
+    "label_vitamin_a": "Vitamin A intake <700 mcg",
+    "label_vitamin_c": "Vitamin C intake <75 mg",
+    "label_magnesium": "Magnesium intake <320 mg",
+    "label_zinc": "Zinc intake <8 mg",
+    "label_protein": "Protein intake <50 g"
+}

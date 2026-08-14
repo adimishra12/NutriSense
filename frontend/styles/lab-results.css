@@ -8,7 +8,7 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 38px;
   font-weight: 700;
-  color: #1a3a2a;
+  color: #0f172a;
   margin-bottom: 8px;
   letter-spacing: -0.5px;
 }
@@ -45,7 +45,7 @@
 }
 
 .lr-field label {
-  color: #1a3a2a;
+  color: #0f172a;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
@@ -61,6 +61,7 @@
   color: #111827;
   transition: border-color 0.2s, box-shadow 0.2s;
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* Hide arrows for type=number (except when hovering over input, or just keep them hidden entirely as requested) */
@@ -68,12 +69,13 @@
 .lr-field input::-webkit-outer-spin-button,
 .lr-field input::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
 .lr-field input:focus {
   outline: none;
-  border-color: #1a3a2a;
+  border-color: #0f172a;
   box-shadow: 0 0 0 3px rgba(26, 58, 42, 0.08);
 }
 
@@ -84,7 +86,7 @@
 /* Submit Button */
 .lr-submit {
   width: 100%;
-  background-color: #1a3a2a;
+  background-color: #0f172a;
   color: #fff;
   border: none;
   border-radius: 30px; /* Pill shape */
@@ -97,7 +99,7 @@
 }
 
 .lr-submit:hover:not(:disabled) {
-  background-color: #15302a;
+  background-color: #1e293b;
 }
 
 .lr-submit:active:not(:disabled) {

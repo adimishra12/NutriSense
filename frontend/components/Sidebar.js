@@ -7,7 +7,6 @@ import "../styles/sidebar.css";
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/dashboard" },
   { label: "Food diary", href: "/diary" },
-  { label: "Symptoms", href: "/symptoms" },
   { label: "Lab results", href: "/lab-results" },
   { label: "Assessment", href: "/assessment" },
   { label: "Meal plan", href: "/meal-plan" },

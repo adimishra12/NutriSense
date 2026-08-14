@@ -41,12 +41,12 @@ def run():
             carbs = safe_float(row.get("Carbohydrate; choavldf"))
             fat = safe_float(row.get("Total Fat; fatce"))
             fiber = safe_float(row.get("Dietary Fiber; fibtg"))
-            iron = safe_float(row.get("Iron (Fe); fe"))
-            calcium = safe_float(row.get("Calcium (Ca); ca"))
-            vit_d = safe_float(row.get("Vitamin D; vitd"))
+            iron = safe_float(row.get("Iron (Fe); fe")) * 1000
+            calcium = safe_float(row.get("Calcium (Ca); ca")) * 1000
+            vit_d = safe_float(row.get("Vitamin D; vitd")) * 1000000
             vit_b12 = 0.0 # B12 generally not listed for IFCT plant foods
-            folate = safe_float(row.get("Folates (B9); folsum"))
-            vit_a = safe_float(row.get("Vitamin A; vita"))
+            folate = safe_float(row.get("Folates (B9); folsum")) * 1000000
+            vit_a = safe_float(row.get("Vitamin A; vita")) * 1000000
 
             data[code] = {
                 "source": "ifct",

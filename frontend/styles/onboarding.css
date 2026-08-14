@@ -9,7 +9,7 @@
 .ob-page {
   min-height: 100vh;
   /* Soft light green/white background instead of solid olive */
-  background: linear-gradient(135deg, #eef7f0, #f8fbf9);
+  background: linear-gradient(135deg, #eef2ff, #f8fafc);
   display: flex;
   align-items: flex-start; /* Start near upper middle instead of strict center */
   justify-content: center;
@@ -17,7 +17,7 @@
 }
 
 .ob-loading {
-  color: #1a3a2a;
+  color: #0f172a;
   font-size: 16px;
   align-items: center;
 }
@@ -34,7 +34,7 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 18px;
   font-weight: 700;
-  color: #1a3a2a;
+  color: #0f172a;
   margin-bottom: 2px;
   letter-spacing: -0.2px;
 }
@@ -43,7 +43,7 @@
   font-family: Georgia, 'Times New Roman', Times, serif;
   font-size: 34px;
   font-weight: 700;
-  color: #1a3a2a;
+  color: #0f172a;
   margin-bottom: 8px;
   line-height: 1.15;
   letter-spacing: -0.5px;
@@ -65,7 +65,7 @@
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: #1a3a2a;
+  color: #0f172a;
   margin-bottom: 8px;
 }
 
@@ -89,7 +89,7 @@
 
 .ob-field input:focus,
 .ob-field select:focus {
-  border-color: #1a3a2a;
+  border-color: #0f172a;
   box-shadow: 0 0 0 3px rgba(26, 58, 42, 0.08);
 }
 
@@ -105,10 +105,12 @@
 .ob-field input[type="number"]::-webkit-outer-spin-button,
 .ob-field input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 .ob-field input[type="number"] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 /* ── Row (side by side fields) ── */
@@ -150,9 +152,9 @@
 }
 
 .ob-pill.selected {
-  background: #1a3a2a;
+  background: #0f172a;
   color: #fff;
-  border-color: #1a3a2a;
+  border-color: #0f172a;
 }
 
 /* ── Submit button ── */
@@ -162,7 +164,7 @@
   margin-top: 16px; /* Moderate gap */
   border: none;
   border-radius: 30px; /* Pill-like corners */
-  background: #1a3a2a;
+  background: #0f172a;
   color: #fff;
   font-size: 16px;
   font-weight: 600;
@@ -171,7 +173,7 @@
 }
 
 .ob-submit:hover:not(:disabled) {
-  background: #15302a;
+  background: #1e293b;
 }
 
 .ob-submit:active:not(:disabled) {

@@ -29,6 +29,19 @@ def create_food_entry(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    # Check if the meal has already been entered on this date
+    existing_entry = db.query(DiaryEntry).filter(
+        DiaryEntry.user_id == current_user.id,
+        DiaryEntry.entry_date == request.entry_date,
+        DiaryEntry.meal_type.ilike(request.meal_type)
+    ).first()
+
+    if existing_entry:
+        raise HTTPException(
+            status_code=400,
+            detail="meal of today is already entered"
+        )
+
     food = get_food_by_id(db, request.food_id)
 
     if not food:
