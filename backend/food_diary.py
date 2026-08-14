@@ -29,18 +29,7 @@ def create_food_entry(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    # Check if the meal has already been entered on this date
-    existing_entry = db.query(DiaryEntry).filter(
-        DiaryEntry.user_id == current_user.id,
-        DiaryEntry.entry_date == request.entry_date,
-        DiaryEntry.meal_type.ilike(request.meal_type)
-    ).first()
-
-    if existing_entry:
-        raise HTTPException(
-            status_code=400,
-            detail="meal of today is already entered"
-        )
+    # Allowed multiple entries per meal type on the same date
 
     food = get_food_by_id(db, request.food_id)
 
@@ -118,10 +107,12 @@ def get_diary_summary(
             days_logged=0,
         )
 
-    # Group by date
+    # Group by date and check complete meals
     daily = {}
+    days_map = {}
     for e in entries:
         date_str = str(e.entry_date)
+        days_map.setdefault(date_str, set()).add(e.meal_type.capitalize())
         if date_str not in daily:
             daily[date_str] = {
                 "calories_kcal": 0, "protein_g": 0, "carbohydrates_g": 0, 
@@ -145,22 +136,44 @@ def get_diary_summary(
         daily[date_str]["magnesium_mg"] += e.magnesium_mg
         daily[date_str]["zinc_mg"] += e.zinc_mg
 
-    num_days = len(daily)
+    REQUIRED_MEALS = {"Breakfast", "Lunch", "Snack", "Dinner"}
+    complete_dates = sorted(d for d, meals in days_map.items() if meals >= REQUIRED_MEALS)
+
+    has_consecutive_streak = False
+    if len(complete_dates) >= 7:
+        date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in complete_dates]
+        current_streak = 1
+        for i in range(1, len(date_objs)):
+            if (date_objs[i] - date_objs[i - 1]).days == 1:
+                current_streak += 1
+                if current_streak >= 7:
+                    has_consecutive_streak = True
+                    break
+            else:
+                current_streak = 1
+
+    if has_consecutive_streak:
+        target_days = [daily[d] for d in complete_dates]
+    else:
+        target_days = list(daily.values())
+
+    divisor = len(target_days) if target_days else 1
+    num_days_logged = len(daily)
 
     return DiarySummary(
-        days_logged=num_days,
-        avg_calories_kcal=round(sum(d["calories_kcal"] for d in daily.values()) / num_days, 1),
-        avg_protein_g=round(sum(d["protein_g"] for d in daily.values()) / num_days, 1),
-        avg_carbohydrates_g=round(sum(d["carbohydrates_g"] for d in daily.values()) / num_days, 1),
-        avg_fat_g=round(sum(d["fat_g"] for d in daily.values()) / num_days, 1),
-        avg_fiber_g=round(sum(d["fiber_g"] for d in daily.values()) / num_days, 1),
-        avg_iron_mg=round(sum(d["iron_mg"] for d in daily.values()) / num_days, 1),
-        avg_calcium_mg=round(sum(d["calcium_mg"] for d in daily.values()) / num_days, 1),
-        avg_vitamin_d_mcg=round(sum(d["vitamin_d_mcg"] for d in daily.values()) / num_days, 1),
-        avg_vitamin_b12_mcg=round(sum(d["vitamin_b12_mcg"] for d in daily.values()) / num_days, 1),
-        avg_folate_mcg=round(sum(d["folate_mcg"] for d in daily.values()) / num_days, 1),
-        avg_vitamin_a_mcg=round(sum(d["vitamin_a_mcg"] for d in daily.values()) / num_days, 1),
-        avg_vitamin_c_mg=round(sum(d["vitamin_c_mg"] for d in daily.values()) / num_days, 1),
-        avg_magnesium_mg=round(sum(d["magnesium_mg"] for d in daily.values()) / num_days, 1),
-        avg_zinc_mg=round(sum(d["zinc_mg"] for d in daily.values()) / num_days, 1),
+        days_logged=num_days_logged,
+        avg_calories_kcal=round(sum(d["calories_kcal"] for d in target_days) / divisor, 1),
+        avg_protein_g=round(sum(d["protein_g"] for d in target_days) / divisor, 1),
+        avg_carbohydrates_g=round(sum(d["carbohydrates_g"] for d in target_days) / divisor, 1),
+        avg_fat_g=round(sum(d["fat_g"] for d in target_days) / divisor, 1),
+        avg_fiber_g=round(sum(d["fiber_g"] for d in target_days) / divisor, 1),
+        avg_iron_mg=round(sum(d["iron_mg"] for d in target_days) / divisor, 1),
+        avg_calcium_mg=round(sum(d["calcium_mg"] for d in target_days) / divisor, 1),
+        avg_vitamin_d_mcg=round(sum(d["vitamin_d_mcg"] for d in target_days) / divisor, 1),
+        avg_vitamin_b12_mcg=round(sum(d["vitamin_b12_mcg"] for d in target_days) / divisor, 1),
+        avg_folate_mcg=round(sum(d["folate_mcg"] for d in target_days) / divisor, 1),
+        avg_vitamin_a_mcg=round(sum(d["vitamin_a_mcg"] for d in target_days) / divisor, 1),
+        avg_vitamin_c_mg=round(sum(d["vitamin_c_mg"] for d in target_days) / divisor, 1),
+        avg_magnesium_mg=round(sum(d["magnesium_mg"] for d in target_days) / divisor, 1),
+        avg_zinc_mg=round(sum(d["zinc_mg"] for d in target_days) / divisor, 1),
     )

@@ -34,6 +34,7 @@ export default function Dashboard() {
   const router = useRouter();
   const { user, token, isLoading } = useAuth();
   const [summary, setSummary] = useState(null);
+  const [latestAssessment, setLatestAssessment] = useState(null);
 
   // Route guard
   useEffect(() => {
@@ -47,13 +48,19 @@ export default function Dashboard() {
     }
   }, [token, user, isLoading, router]);
 
-  // Fetch diary summary
+  // Fetch diary summary and latest assessment
   useEffect(() => {
     if (!token) return;
+    
     api
       .get("/diary/summary")
       .then((res) => setSummary(res.data))
       .catch(() => setSummary(null));
+      
+    api
+      .get("/assessment/latest")
+      .then((res) => setLatestAssessment(res.data))
+      .catch(() => setLatestAssessment(null));
   }, [token]);
 
   if (isLoading || !token || !user) {
@@ -105,10 +112,19 @@ export default function Dashboard() {
             {/* Wellness score */}
             <div className="dash-card">
               <h2 className="dash-card-title">Latest wellness score</h2>
-              <div className="dash-wellness-placeholder">
-                <span className="dash-wellness-dash">—</span>
-                <p>No assessment yet</p>
-              </div>
+              {latestAssessment ? (
+                <div className="dash-wellness-placeholder">
+                  <span className="dash-wellness-dash" style={{ color: "#4f46e5", fontWeight: "bold" }}>
+                    {latestAssessment.overall_score}%
+                  </span>
+                  <p>Based on {latestAssessment.diary_days_used} days</p>
+                </div>
+              ) : (
+                <div className="dash-wellness-placeholder">
+                  <span className="dash-wellness-dash">—</span>
+                  <p>No assessment yet</p>
+                </div>
+              )}
             </div>
           </div>
 
