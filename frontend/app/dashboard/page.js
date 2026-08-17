@@ -51,12 +51,12 @@ export default function Dashboard() {
   // Fetch diary summary and latest assessment
   useEffect(() => {
     if (!token) return;
-    
+
     api
       .get("/diary/summary")
       .then((res) => setSummary(res.data))
       .catch(() => setSummary(null));
-      
+
     api
       .get("/assessment/latest")
       .then((res) => setLatestAssessment(res.data))
@@ -99,8 +99,8 @@ export default function Dashboard() {
                 >
                   Log a meal
                 </button>
-                <button 
-                  className="dash-btn filled" 
+                <button
+                  className="dash-btn filled"
                   disabled={daysLogged < 7}
                   onClick={() => router.push("/assessment")}
                 >
