@@ -110,9 +110,6 @@ export default function LabResults() {
       <main className="page-with-sidebar">
         <div className="page-content lr-custom-content">
           <h1 className="lr-page-title">Lab results</h1>
-          <p className="lr-page-subtitle">
-            Optional — improves iron & vitamin D confidence after ML prediction.
-          </p>
           
           <div className="lr-card">
             <div className="lr-row">

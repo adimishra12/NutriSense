@@ -11,7 +11,7 @@ from models import User
 # ── Config ──────────────────────────────────────────
 SECRET_KEY = "nutrisense-dev-secret-key-change-in-production"
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30 # 30 days for testing
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/login")
 

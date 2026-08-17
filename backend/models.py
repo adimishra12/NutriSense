@@ -70,6 +70,9 @@ class FoodItem(Base):
     # USDA/IFCT details
     is_vegetarian = Column(Boolean, nullable=False, default=False)
     is_vegan = Column(Boolean, nullable=False, default=False)
+    is_gluten_free = Column(Boolean, nullable=False, default=True)
+    is_dairy_free = Column(Boolean, nullable=False, default=True)
+    is_nut_free = Column(Boolean, nullable=False, default=True)
     fdc_id = Column(String(32), nullable=True)
     data_type = Column(String(32), default='unknown')
     serving_description = Column(String(255), nullable=True)

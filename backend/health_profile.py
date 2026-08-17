@@ -66,3 +66,34 @@ def get_health_profile(
         )
 
     return profile
+
+
+@router.put("/", response_model=HealthProfileResponse)
+def update_health_profile(
+    request: HealthProfileRequest,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    profile = db.query(HealthProfile).filter(
+        HealthProfile.user_id == current_user.id
+    ).first()
+
+    if not profile:
+        raise HTTPException(
+            status_code=404,
+            detail="Health profile not found"
+        )
+
+    profile.age_years = request.age_years
+    profile.gender = request.gender
+    profile.height_cm = request.height_cm
+    profile.weight_kg = request.weight_kg
+    profile.activity_level = request.activity_level
+    profile.diet_restrictions = ",".join(request.diet_restrictions)
+    profile.conditions = request.conditions
+    profile.health_goal = request.health_goal
+
+    db.commit()
+    db.refresh(profile)
+
+    return profile

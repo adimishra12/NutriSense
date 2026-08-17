@@ -140,13 +140,13 @@ def get_diary_summary(
     complete_dates = sorted(d for d, meals in days_map.items() if meals >= REQUIRED_MEALS)
 
     has_consecutive_streak = False
-    if len(complete_dates) >= 7:
+    if len(complete_dates) >= 4:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in complete_dates]
         current_streak = 1
         for i in range(1, len(date_objs)):
             if (date_objs[i] - date_objs[i - 1]).days == 1:
                 current_streak += 1
-                if current_streak >= 7:
+                if current_streak >= 4:
                     has_consecutive_streak = True
                     break
             else:

@@ -46,7 +46,8 @@ def search_foods(db: Session, query: str, limit: int = 20) -> List[Dict[str, Any
     foods = db.query(FoodItem).filter(
         or_(
             FoodItem.name.ilike(f"%{query}%"),
-            FoodItem.tags.ilike(f"%{query}%")
+            FoodItem.tags.ilike(f"%{query}%"),
+            FoodItem.ingredients.ilike(f"%{query}%")
         )
     ).limit(limit).all()
 

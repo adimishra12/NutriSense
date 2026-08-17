@@ -80,19 +80,6 @@ LABEL_TO_NUTRIENT = {
     "label_protein":    "protein",
 }
 
-NUTRIENT_DISPLAY_LABELS = {
-    "iron":       "Low iron intake",
-    "calcium":    "Low calcium intake",
-    "vitamin_d":  "Low vitamin D intake",
-    "vitamin_b12": "Low B12 intake",
-    "folate":     "Low folate intake",
-    "vitamin_a":  "Low vitamin A intake",
-    "vitamin_c":  "Low vitamin C intake",
-    "magnesium":  "Low magnesium intake",
-    "zinc":       "Low zinc intake",
-    "protein":    "Low protein intake",
-}
-
 # Column in FoodItem to sort by when recommending foods
 NUTRIENT_SORT_COLUMN = {
     "iron":       "iron_mg",
@@ -123,7 +110,7 @@ def run_assessment(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    # 1) Validate 7 complete diary days ────────────────
+    # 1) Validate 4 complete diary days ────────────────
     entries = (
         db.query(DiaryEntry)
         .filter(DiaryEntry.user_id == current_user.id)
@@ -139,44 +126,44 @@ def run_assessment(
     # Find complete days (all 4 meals)
     complete_dates = sorted(d for d, meals in days_map.items() if meals >= REQUIRED_MEALS)
 
-    if len(complete_dates) < 7:
+    if len(complete_dates) < 4:
         raise HTTPException(
             status_code=400,
             detail=(
-                f"Assessment requires 7 consecutive complete days of meals (found {len(complete_dates)} complete day(s)). "
+                f"Assessment requires 4 consecutive complete days of meals (found {len(complete_dates)} complete day(s)). "
                 "Please complete all Breakfast, Lunch, Snack and Dinner entries before running the assessment."
             ),
         )
 
-    # Check for at least one 7-day consecutive streak
+    # Check for at least one 4-day consecutive streak
     has_consecutive_streak = False
-    if len(complete_dates) >= 7:
+    if len(complete_dates) >= 4:
         date_objs = [datetime.strptime(d, "%Y-%m-%d").date() for d in complete_dates]
         current_streak = 1
         for i in range(1, len(date_objs)):
             if (date_objs[i] - date_objs[i - 1]).days == 1:
                 current_streak += 1
-                if current_streak >= 7:
+                if current_streak >= 4:
                     has_consecutive_streak = True
                     break
             else:
                 current_streak = 1
                 
-        # If no streak was found despite having 7+ days
+        # If no streak was found despite having 4+ days
         if not has_consecutive_streak:
             raise HTTPException(
                 status_code=400,
                 detail=(
-                    "Assessment requires at least one 7-day consecutive streak of complete meals. "
-                    "Your complete diary days have gaps that prevent a 7-day streak. "
-                    "Please fill in all Breakfast, Lunch, Snack and Dinner entries for 7 consecutive days."
+                    "Assessment requires at least one 4-day consecutive streak of complete meals. "
+                    "Your complete diary days have gaps that prevent a 4-day streak. "
+                    "Please fill in all Breakfast, Lunch, Snack and Dinner entries for 4 consecutive days."
                 ),
             )
 
     # Use all complete eligible days
     target_dates = complete_dates
 
-    # 2) Compute 7-day average nutrients ───────────────
+    # 2) Compute 4-day average nutrients ───────────────
     target_date_set = set(target_dates)
     target_entries = [e for e in entries if str(e.entry_date) in target_date_set]
 
@@ -279,15 +266,69 @@ def run_assessment(
     overall_score = round((1 - avg_risk) * 100, 1)
 
     # 8) Build response ────────────────────────────────
+    RDA = {
+        "protein_g":        50,
+        "iron_mg":          18,
+        "calcium_mg":       1000,
+        "vitamin_d_mcg":    15,
+        "vitamin_b12_mcg":  2.4,
+        "folate_mcg":       400,
+        "vitamin_a_mcg":    900,
+        "vitamin_c_mg":     90,
+        "magnesium_mg":     400,
+        "zinc_mg":          11,
+    }
+
     risks_list = []
     for nutrient_key, prob in risks.items():
+        reasons = []
+        
+        DISPLAY_NAMES = {
+            "iron": "iron",
+            "calcium": "calcium",
+            "vitamin_d": "vitamin D",
+            "vitamin_b12": "B12",
+            "folate": "folate",
+            "vitamin_a": "vitamin A",
+            "vitamin_c": "vitamin C",
+            "magnesium": "magnesium",
+            "zinc": "zinc",
+            "protein": "protein",
+        }
+        
+        # Determine average key to check against RDA
+        avg_key = NUTRIENT_SORT_COLUMN.get(nutrient_key)
+        if avg_key and avg_key in avg:
+            intake = avg[avg_key]
+            target = RDA.get(avg_key)
+            if target is not None:
+                display_nut = DISPLAY_NAMES.get(nutrient_key, nutrient_key)
+                    
+                # Add a 10% tolerance so near-perfect amounts (e.g. 10.64 vs 11) aren't strictly flagged as low
+                if intake < target * 0.9:
+                    reasons.append(f"Low {display_nut} intake")
+                else:
+                    if prob > 0.45:
+                        reasons.append("Intake pattern from diary average")
+                    else:
+                        reasons.append(f"Adequate {display_nut} intake")
+                    
+        # Check for very low energy intake threshold
+        if avg.get("calories_kcal", 0) < 1200:
+            reasons.append("Very low energy intake")
+            
+        # Fallback if no logic matched
+        if not reasons:
+            reasons.append(f"Intake pattern from diary average")
+
         risks_list.append({
             "nutrient":    nutrient_key,
             "probability": round(prob, 4),
             "percentage":  round(prob * 100, 1),
             "risk_level":  _risk_level(prob),
-            "label":       NUTRIENT_DISPLAY_LABELS.get(nutrient_key, nutrient_key),
+            "reasons":     reasons,
         })
+
 
     # Sort by probability descending (highest risk first)
     risks_list.sort(key=lambda r: r["probability"], reverse=True)
@@ -352,7 +393,7 @@ def get_recommendations(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
-    col_name = NUTRIENT_SORT_COLUMN.get(nutrient)
+    col_name = NUTRIENT_SORT_COLUMN.get(nutrient.lower())
     if not col_name:
         raise HTTPException(status_code=400, detail=f"Unknown nutrient: {nutrient}")
 
@@ -360,24 +401,115 @@ def get_recommendations(
     if sort_col is None:
         raise HTTPException(status_code=500, detail=f"Column {col_name} not found on FoodItem")
 
-    foods = (
-        db.query(FoodItem)
-        .filter(sort_col > 0)
-        .order_by(desc(sort_col))
-        .limit(15)
-        .all()
+    # Enforce strict 45% probability threshold
+    latest_assessment = (
+        db.query(Assessment)
+        .filter(Assessment.user_id == current_user.id)
+        .order_by(desc(Assessment.created_at))
+        .first()
     )
+    if not latest_assessment:
+        return []
+        
+    risks_list = json.loads(latest_assessment.risks_json)
+    risk_item = next((r for r in risks_list if r["nutrient"] == nutrient), None)
+    
+    if not risk_item or risk_item["probability"] <= 0.45:
+        return []
+
+    profile = db.query(HealthProfile).filter(HealthProfile.user_id == current_user.id).first()
+    restrictions = []
+    if profile and profile.diet_restrictions:
+        restrictions = [r.strip() for r in profile.diet_restrictions.split(",")]
+
+    query = db.query(FoodItem).filter(sort_col > 0)
+    
+    if "Vegetarian" in restrictions:
+        query = query.filter(FoodItem.is_vegetarian == True)
+    if "Vegan" in restrictions:
+        query = query.filter(FoodItem.is_vegan == True)
+    if "Gluten-free" in restrictions:
+        query = query.filter(FoodItem.is_gluten_free == True)
+    if "Dairy-free" in restrictions:
+        query = query.filter(FoodItem.is_dairy_free == True)
+    if "Nut allergy" in restrictions:
+        query = query.filter(FoodItem.is_nut_free == True)
+
+    foods = query.order_by(desc(sort_col)).limit(6).all()
+
+    COMMON_FOOD_NAMES = {
+        "Gingelly seeds, black": "Black Sesame Seeds",
+        "Gingelly seeds, white": "White Sesame Seeds",
+        "Gingelly seeds, brown": "Brown Sesame Seeds",
+        "Omum": "Ajwain (Carom Seeds)",
+        "Drumstick leaves": "Moringa Leaves",
+        "Bengal gram, whole": "Chana (Bengal Gram)",
+        "Green gram, whole": "Moong (Green Gram)",
+        "Red gram, whole": "Toor (Pigeon Pea)",
+        "Black gram, whole": "Urad (Black Gram)",
+        "Cowpea, brown": "Lobia (Cowpea)",
+        "Lentil": "Masoor (Lentil)",
+        "Moth bean": "Matki (Moth Bean)",
+        "Rajmah, red": "Rajma (Red Kidney Beans)",
+        "Horse gram, whole": "Kulthi (Horse Gram)",
+        "Amaranth seed, black": "Rajgira (Amaranth)",
+        "Bajra": "Bajra (Pearl Millet)",
+        "Jowar": "Jowar (Sorghum)",
+        "Ragi": "Ragi (Finger Millet)",
+        "Fenugreek seeds": "Methi Seeds (Fenugreek)",
+        "Coriander seeds": "Dhania Seeds (Coriander)",
+        "Cumin seeds": "Jeera (Cumin)",
+        "Mustard seeds": "Sarson (Mustard Seeds)",
+        "Curry leaves": "Kadi Patta (Curry Leaves)",
+        "Mint leaves": "Pudina (Mint)",
+        "Coriander leaves": "Dhania Leaves (Coriander)",
+        "Fenugreek leaves": "Methi Leaves (Fenugreek)",
+        "Amaranth leaves": "Chaulai (Amaranth Leaves)",
+        "Spinach leaves": "Palak (Spinach)",
+        "Radish leaves": "Mooli Leaves (Radish)",
+        "Bitter gourd": "Karela (Bitter Gourd)",
+        "Bottle gourd": "Lauki (Bottle Gourd)",
+        "Ridge gourd": "Turai (Ridge Gourd)",
+        "Snake gourd": "Chichinda (Snake Gourd)",
+        "Pointed gourd": "Parwal (Pointed Gourd)",
+        "Ivy gourd": "Tindora (Ivy Gourd)",
+        "Ash gourd": "Petha (Ash Gourd)",
+        "Brinjal": "Baingan (Eggplant)",
+        "Lady finger": "Bhindi (Okra)",
+        "Cluster beans": "Gawar Phali (Cluster Beans)",
+        "French beans": "Green Beans",
+        "Jackfruit, raw": "Kathal (Raw Jackfruit)",
+        "Green plantain": "Kachcha Kela (Raw Banana)",
+        "Colocasia": "Arbi (Colocasia)",
+        "Yam": "Jimikand (Yam)",
+        "Sweet potato": "Shakarkandi (Sweet Potato)",
+        "Tapioca": "Sabudana/Cassava (Tapioca)",
+        "Gooseberry, Indian": "Amla (Indian Gooseberry)",
+        "Guava": "Amrood (Guava)",
+        "Pomegranate": "Anar (Pomegranate)",
+        "Watermelon": "Tarbooz (Watermelon)",
+        "Muskmelon": "Kharbuja (Muskmelon)",
+        "Papaya, ripe": "Papeeta (Papaya)",
+        "Mango, ripe": "Aam (Mango)",
+        "Sapota": "Chikoo (Sapota)",
+        "Custard apple": "Sitaphal (Custard Apple)",
+        "Wood apple": "Bael (Wood Apple)",
+        "Bengal gram, dhal": "Chana Dal",
+        "Green gram, dhal": "Moong Dal",
+        "Red gram, dhal": "Toor Dal",
+        "Black gram, dhal": "Urad Dal",
+    }
 
     results = []
     for f in foods:
+        display_name = COMMON_FOOD_NAMES.get(f.name, f.name)
         results.append({
-            "id":         f.id,
-            "name":       f.name,
-            "iron_mg":    round(f.iron_mg, 1),
-            "calcium_mg": round(f.calcium_mg, 0),
+            "id": f.id,
+            "name": display_name,
+            "nutrient_value": round(getattr(f, col_name), 1),
         })
 
     return {
         "nutrient": nutrient,
-        "foods":    results,
+        "foods": results,
     }

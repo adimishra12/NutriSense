@@ -33,8 +33,7 @@ export default function AssessmentPage() {
   const [running, setRunning] = useState(false);
 
   // Recommendation state
-  const [selectedNutrient, setSelectedNutrient] = useState(null);
-  const [recommendations, setRecommendations] = useState([]);
+  const [recommendationsMap, setRecommendationsMap] = useState({});
   const [loadingRecs, setLoadingRecs] = useState(false);
 
   // ── Route guard ──────────────────────────────────────
@@ -57,9 +56,21 @@ export default function AssessmentPage() {
       .get("/assessment/latest")
       .then((res) => {
         setAssessment(res.data);
-        // Auto-select the first (highest risk) nutrient
-        if (res.data.risks && res.data.risks.length > 0) {
-          setSelectedNutrient(res.data.risks[0].nutrient);
+        const highRiskNutrients = res.data.risks.filter((r) => r.percentage > 45).map((r) => r.nutrient);
+        if (highRiskNutrients.length > 0) {
+          setLoadingRecs(true);
+          Promise.all(
+            highRiskNutrients.map((n) => api.get(`/assessment/recommendations?nutrient=${n}`))
+          )
+            .then((responses) => {
+              const newMap = {};
+              responses.forEach((resp, i) => {
+                newMap[highRiskNutrients[i]] = resp.data.foods;
+              });
+              setRecommendationsMap(newMap);
+            })
+            .catch(() => setRecommendationsMap({}))
+            .finally(() => setLoadingRecs(false));
         }
       })
       .catch(() => {
@@ -68,26 +79,6 @@ export default function AssessmentPage() {
       .finally(() => setLoadingAssessment(false));
   }, [token]);
 
-  // ── Fetch recommendations when selected nutrient changes ──
-  const fetchRecommendations = useCallback(
-    (nutrient) => {
-      if (!token || !nutrient) return;
-      setLoadingRecs(true);
-      api
-        .get(`/assessment/recommendations?nutrient=${nutrient}`)
-        .then((res) => setRecommendations(res.data.foods || []))
-        .catch(() => setRecommendations([]))
-        .finally(() => setLoadingRecs(false));
-    },
-    [token]
-  );
-
-  useEffect(() => {
-    if (selectedNutrient) {
-      fetchRecommendations(selectedNutrient);
-    }
-  }, [selectedNutrient, fetchRecommendations]);
-
   // ── Run assessment ───────────────────────────────────
   const handleRunAssessment = async () => {
     setRunning(true);
@@ -95,9 +86,21 @@ export default function AssessmentPage() {
       const res = await api.post("/assessment/run");
       setAssessment(res.data);
       toast.success("Assessment completed successfully!");
-      // Auto-select first nutrient
-      if (res.data.risks && res.data.risks.length > 0) {
-        setSelectedNutrient(res.data.risks[0].nutrient);
+      const highRiskNutrients = res.data.risks.filter((r) => r.percentage > 45).map((r) => r.nutrient);
+      if (highRiskNutrients.length > 0) {
+        setLoadingRecs(true);
+        Promise.all(
+          highRiskNutrients.map((n) => api.get(`/assessment/recommendations?nutrient=${n}`))
+        )
+          .then((responses) => {
+            const newMap = {};
+            responses.forEach((resp, i) => {
+              newMap[highRiskNutrients[i]] = resp.data.foods;
+            });
+            setRecommendationsMap(newMap);
+          })
+          .catch(() => setRecommendationsMap({}))
+          .finally(() => setLoadingRecs(false));
       }
     } catch (err) {
       const detail =
@@ -126,7 +129,7 @@ export default function AssessmentPage() {
           {/* ── Header bar ── */}
           <div className="assess-header">
             <span className="assess-model-info">
-              Random Forest model · {assessment ? `${assessment.diary_days_used} complete diary days used · minimum 7 consecutive required` : "7 consecutive complete diary days required"}
+              {assessment ? `${assessment.diary_days_used} complete diary days used · minimum 4 consecutive required` : "4 consecutive complete diary days required"}
             </span>
             <button
               className="assess-run-btn"
@@ -148,7 +151,7 @@ export default function AssessmentPage() {
               <div className="assess-empty-icon">🔬</div>
               <h2>No assessment yet</h2>
               <p>
-                Log at least 7 consecutive complete days of meals (Breakfast, Lunch,
+                Log at least 4 consecutive complete days of meals (Breakfast, Lunch,
                 Snack, Dinner) then click &ldquo;Run assessment&rdquo; to see
                 your deficiency risk analysis.
               </p>
@@ -174,10 +177,7 @@ export default function AssessmentPage() {
                   {assessment.risks.map((risk) => (
                     <div
                       key={risk.nutrient}
-                      className={`assess-def-card ${
-                        selectedNutrient === risk.nutrient ? "selected" : ""
-                      }`}
-                      onClick={() => setSelectedNutrient(risk.nutrient)}
+                      className={`assess-def-card ${risk.percentage <= 45 ? "low-risk-disabled" : ""}`}
                     >
                       {/* Top row */}
                       <div className="assess-def-top">
@@ -206,8 +206,16 @@ export default function AssessmentPage() {
                         </span>
                       </div>
 
-                      {/* Explanation pill */}
-                      <span className="assess-def-label">{risk.label}</span>
+                      {/* Explanation pills */}
+                      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "12px" }}>
+                        {(risk.reasons || [risk.label || ""]).map((reason, idx) => (
+                          reason ? (
+                            <span key={idx} className="assess-def-label" style={{ marginTop: 0 }}>
+                              {reason}
+                            </span>
+                          ) : null
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -216,25 +224,36 @@ export default function AssessmentPage() {
               {/* ── Right: Recommendation panel ── */}
               <div className="assess-rec-panel">
                 <h3 className="assess-rec-heading">
-                  {NUTRIENT_DISPLAY[selectedNutrient] || selectedNutrient}
+                  Recommended foods
                 </h3>
 
                 {loadingRecs ? (
                   <div className="assess-loading">
                     <div className="assess-spinner" />
                   </div>
-                ) : recommendations.length === 0 ? (
+                ) : Object.keys(recommendationsMap).length === 0 ? (
                   <p style={{ color: "#6b7280", fontSize: 14 }}>
-                    No food recommendations available.
+                    No high-risk nutrients detected.
                   </p>
                 ) : (
-                  <div className="assess-rec-list">
-                    {recommendations.map((food) => (
-                      <div key={food.id} className="assess-rec-row">
-                        <span className="assess-rec-name">{food.name}</span>
-                        <span className="assess-rec-nutrients">
-                          Fe {food.iron_mg} · Ca {food.calcium_mg}
-                        </span>
+                  <div className="assess-rec-list" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    {assessment.risks.filter((r) => r.percentage > 45).map((risk) => (
+                      <div key={risk.nutrient}>
+                        <h4 style={{ fontSize: 14, fontWeight: 700, color: "#0f172a", marginBottom: 12, borderBottom: "1px solid #e5e7eb", paddingBottom: 8 }}>
+                          {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient}
+                        </h4>
+                        {recommendationsMap[risk.nutrient]?.length === 0 ? (
+                          <p style={{ color: "#6b7280", fontSize: 13 }}>No foods found.</p>
+                        ) : (
+                          recommendationsMap[risk.nutrient]?.map((food) => (
+                            <div key={food.id} className="assess-rec-row">
+                              <span className="assess-rec-name">{food.name}</span>
+                              <span className="assess-rec-nutrients">
+                                {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient} {food.nutrient_value}
+                              </span>
+                            </div>
+                          ))
+                        )}
                       </div>
                     ))}
                   </div>

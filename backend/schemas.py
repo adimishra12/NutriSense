@@ -15,6 +15,16 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class ProfileUpdateRequest(BaseModel):
+    full_name: str
+    email: EmailStr
+
+
+class PasswordUpdateRequest(BaseModel):
+    current_password: str
+    new_password: str
+
+
 class HealthProfileRequest(BaseModel):
     age_years: int
     gender: int

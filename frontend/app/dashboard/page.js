@@ -90,7 +90,7 @@ export default function Dashboard() {
               <h2 className="dash-card-title">Diary status</h2>
               <p className="dash-card-metric">
                 <strong>{daysLogged}</strong> days logged
-                {daysLogged < 7 && " — need 7 to assess"}
+                {daysLogged < 4 && " — need 4 to assess"}
               </p>
               <div className="dash-card-actions">
                 <button
@@ -101,7 +101,7 @@ export default function Dashboard() {
                 </button>
                 <button
                   className="dash-btn filled"
-                  disabled={daysLogged < 7}
+                  disabled={daysLogged < 4}
                   onClick={() => router.push("/assessment")}
                 >
                   Run assessment
@@ -128,32 +128,54 @@ export default function Dashboard() {
             </div>
           </div>
 
-          {/* ── RDA bars ── */}
+          {/* ── Latest Deficiency Risks ── */}
           <div className="dash-card dash-rda-card">
-            <h2 className="dash-card-title">Average intake vs RDA</h2>
+            <h2 className="dash-card-title">Latest Deficiency Risks</h2>
 
-            <div className="dash-rda-list">
-              {NUTRIENT_LABELS.map((n) => {
-                const value = summary ? summary[n.key] : 0;
-                const pct = Math.min(
-                  Math.round((value / n.rda) * 100),
-                  100
-                );
+            {!latestAssessment ? (
+              <p style={{ color: "#6b7280", fontSize: 14 }}>
+                No assessment available. Log meals and run an assessment first.
+              </p>
+            ) : (
+              <div className="dash-rda-list">
+                {latestAssessment.risks.map((risk) => {
+                  const pct = Math.min(risk.percentage, 100);
+                  
+                  // Set class based on ML risk level
+                  let riskClass = "low-risk";
+                  if (risk.risk_level.toLowerCase() === "high") riskClass = "high-risk";
+                  else if (risk.risk_level.toLowerCase() === "moderate") riskClass = "moderate-risk";
 
-                return (
-                  <div className="dash-rda-row" key={n.key}>
-                    <span className="dash-rda-label">{n.label}</span>
-                    <div className="dash-rda-track">
-                      <div
-                        className="dash-rda-fill"
-                        style={{ width: `${pct}%` }}
-                      />
+                  const displayNames = {
+                    iron: "Iron",
+                    calcium: "Calcium",
+                    vitamin_d: "Vitamin D",
+                    vitamin_b12: "Vitamin B12",
+                    folate: "Folate",
+                    vitamin_a: "Vitamin A",
+                    vitamin_c: "Vitamin C",
+                    magnesium: "Magnesium",
+                    zinc: "Zinc",
+                    protein: "Protein",
+                  };
+                  
+                  const label = displayNames[risk.nutrient] || risk.nutrient;
+
+                  return (
+                    <div className="dash-rda-row" key={risk.nutrient}>
+                      <span className="dash-rda-label">{label}</span>
+                      <div className="dash-rda-track">
+                        <div
+                          className={`dash-rda-fill ${riskClass}`}
+                          style={{ width: `${pct}%` }}
+                        />
+                      </div>
+                      <span className="dash-rda-pct">{pct}%</span>
                     </div>
-                    <span className="dash-rda-pct">{pct}%</span>
-                  </div>
-                );
-              })}
-            </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </div>
       </main>

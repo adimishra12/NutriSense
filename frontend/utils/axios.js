@@ -18,4 +18,19 @@ api.interceptors.request.use((config) => {
   return config;
 });
 
+// Handle 401 Unauthorized by logging out
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      if (typeof window !== "undefined" && window.location.pathname !== "/login") {
+        localStorage.removeItem("nutrisense_token");
+        localStorage.removeItem("nutrisense_user");
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default api;

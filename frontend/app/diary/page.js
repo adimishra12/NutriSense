@@ -197,7 +197,7 @@ export default function Diary() {
                   <div className="diary-dropdown">
                     {searchResults.map((food) => (
                       <button
-                        key={food.name}
+                        key={food.id}
                         className="diary-dropdown-item"
                         onClick={() => selectFood(food)}
                         type="button"

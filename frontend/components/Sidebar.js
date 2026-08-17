@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { label: "Assessment", href: "/assessment" },
   { label: "Meal plan", href: "/meal-plan" },
   { label: "Progress", href: "/progress" },
+  { label: "Profile", href: "/profile" },
 ];
 
 export default function Sidebar() {
