@@ -39,17 +39,34 @@ def get_food_by_id(db: Session, food_id: int) -> Dict[str, Any]:
     }
 
 
-from sqlalchemy import or_
+from sqlalchemy import or_, and_, case
 
 def search_foods(db: Session, query: str, limit: int = 20) -> List[Dict[str, Any]]:
     """Search for food items in the database by name or tags."""
-    foods = db.query(FoodItem).filter(
-        or_(
-            FoodItem.name.ilike(f"%{query}%"),
-            FoodItem.tags.ilike(f"%{query}%"),
-            FoodItem.ingredients.ilike(f"%{query}%")
+    words = query.strip().split()
+    if not words:
+        return []
+
+    # Each word must be found in either name, tags, or ingredients
+    word_conditions = []
+    for word in words:
+        word_conditions.append(
+            or_(
+                FoodItem.name.ilike(f"%{word}%"),
+                FoodItem.tags.ilike(f"%{word}%"),
+                FoodItem.ingredients.ilike(f"%{word}%")
+            )
         )
-    ).limit(limit).all()
+    
+    search_condition = and_(*word_conditions)
+    
+    order_expr = case(
+        (and_(FoodItem.data_type == 'curated', FoodItem.name.ilike(query)), 1),
+        (FoodItem.data_type == 'curated', 2),
+        else_=3
+    )
+
+    foods = db.query(FoodItem).filter(search_condition).order_by(order_expr).limit(limit).all()
 
     results = []
     for food in foods:

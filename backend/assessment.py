@@ -268,65 +268,25 @@ def run_assessment(
     # 8) Build response ────────────────────────────────
     RDA = {
         "protein_g":        50,
-        "iron_mg":          18,
+        "iron_mg":          8,
         "calcium_mg":       1000,
         "vitamin_d_mcg":    15,
         "vitamin_b12_mcg":  2.4,
         "folate_mcg":       400,
-        "vitamin_a_mcg":    900,
-        "vitamin_c_mg":     90,
-        "magnesium_mg":     400,
-        "zinc_mg":          11,
+        "vitamin_a_mcg":    700,
+        "vitamin_c_mg":     75,
+        "magnesium_mg":     320,
+        "zinc_mg":          8,
     }
 
     risks_list = []
     for nutrient_key, prob in risks.items():
-        reasons = []
-        
-        DISPLAY_NAMES = {
-            "iron": "iron",
-            "calcium": "calcium",
-            "vitamin_d": "vitamin D",
-            "vitamin_b12": "B12",
-            "folate": "folate",
-            "vitamin_a": "vitamin A",
-            "vitamin_c": "vitamin C",
-            "magnesium": "magnesium",
-            "zinc": "zinc",
-            "protein": "protein",
-        }
-        
-        # Determine average key to check against RDA
-        avg_key = NUTRIENT_SORT_COLUMN.get(nutrient_key)
-        if avg_key and avg_key in avg:
-            intake = avg[avg_key]
-            target = RDA.get(avg_key)
-            if target is not None:
-                display_nut = DISPLAY_NAMES.get(nutrient_key, nutrient_key)
-                    
-                # Add a 10% tolerance so near-perfect amounts (e.g. 10.64 vs 11) aren't strictly flagged as low
-                if intake < target * 0.9:
-                    reasons.append(f"Low {display_nut} intake")
-                else:
-                    if prob > 0.45:
-                        reasons.append("Intake pattern from diary average")
-                    else:
-                        reasons.append(f"Adequate {display_nut} intake")
-                    
-        # Check for very low energy intake threshold
-        if avg.get("calories_kcal", 0) < 1200:
-            reasons.append("Very low energy intake")
-            
-        # Fallback if no logic matched
-        if not reasons:
-            reasons.append(f"Intake pattern from diary average")
-
         risks_list.append({
             "nutrient":    nutrient_key,
             "probability": round(prob, 4),
             "percentage":  round(prob * 100, 1),
             "risk_level":  _risk_level(prob),
-            "reasons":     reasons,
+            "reasons":     [],
         })
 
 
@@ -422,7 +382,10 @@ def get_recommendations(
     if profile and profile.diet_restrictions:
         restrictions = [r.strip() for r in profile.diet_restrictions.split(",")]
 
-    query = db.query(FoodItem).filter(sort_col > 0)
+    query = db.query(FoodItem).filter(
+        sort_col > 0,
+        FoodItem.data_type == 'curated'
+    )
     
     if "Vegetarian" in restrictions:
         query = query.filter(FoodItem.is_vegetarian == True)

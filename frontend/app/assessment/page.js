@@ -205,17 +205,6 @@ export default function AssessmentPage() {
                           {risk.risk_level}
                         </span>
                       </div>
-
-                      {/* Explanation pills */}
-                      <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", marginTop: "12px" }}>
-                        {(risk.reasons || [risk.label || ""]).map((reason, idx) => (
-                          reason ? (
-                            <span key={idx} className="assess-def-label" style={{ marginTop: 0 }}>
-                              {reason}
-                            </span>
-                          ) : null
-                        ))}
-                      </div>
                     </div>
                   ))}
                 </div>
