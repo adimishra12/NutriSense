@@ -215,3 +215,28 @@
     grid-template-columns: 1fr;
   }
 }
+
+.diary-entry-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.diary-entry-delete {
+  background: none;
+  border: none;
+  color: #9ca3af;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.diary-entry-delete:hover {
+  color: #ef4444;
+  background: #fee2e2;
+}

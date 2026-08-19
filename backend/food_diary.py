@@ -92,6 +92,27 @@ def get_food_entries(
     return entries
 
 
+# ── Delete a food entry ─────────────────────────────
+@router.delete("/diary/entries/{entry_id}", response_model=dict)
+def delete_food_entry(
+    entry_id: int,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    entry = db.query(DiaryEntry).filter(
+        DiaryEntry.id == entry_id,
+        DiaryEntry.user_id == current_user.id
+    ).first()
+
+    if not entry:
+        raise HTTPException(status_code=404, detail="Entry not found")
+
+    db.delete(entry)
+    db.commit()
+
+    return {"message": "Entry deleted successfully"}
+
+
 # ── Get summary (avg nutrients across all days) ─────
 @router.get("/diary/summary", response_model=DiarySummary)
 def get_diary_summary(

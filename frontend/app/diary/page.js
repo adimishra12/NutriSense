@@ -130,6 +130,19 @@ export default function Diary() {
     }
   };
 
+  const handleDelete = async (entryId) => {
+    const entryToDelete = entries.find((e) => e.id === entryId);
+    if (!entryToDelete) return;
+
+    try {
+      await api.delete(`/diary/entries/${entryId}`);
+      toast.success(`${entryToDelete.food_name} removed!`);
+      setEntries(entries.filter((e) => e.id !== entryId));
+    } catch (error) {
+      toast.error("Failed to delete entry.");
+    }
+  };
+
   if (isLoading || !token || !user) {
     return (
       <div className="page-with-sidebar diary-loading">
@@ -248,9 +261,18 @@ export default function Diary() {
                         <span className="diary-entry-food">
                           {entry.food_name}
                         </span>
-                        <span className="diary-entry-meal">
-                          {entry.meal_type}
-                        </span>
+                        <div className="diary-entry-actions">
+                          <span className="diary-entry-meal">
+                            {entry.meal_type}
+                          </span>
+                          <button
+                            onClick={() => handleDelete(entry.id)}
+                            className="diary-entry-delete"
+                            title="Delete entry"
+                          >
+                            ✕
+                          </button>
+                        </div>
                       </div>
                       <div className="diary-entry-details">
                         <span>{entry.portion_grams}g</span>
