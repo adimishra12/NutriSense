@@ -34,6 +34,14 @@ export default function Home() {
     }
   };
 
+  const scrollToSection = (e, sectionId) => {
+    e.preventDefault();
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   const navStyle = {
     background: isScrolled ? "rgba(6, 78, 59, 0.95)" : "transparent",
     backdropFilter: isScrolled ? "blur(10px)" : "none",
@@ -46,10 +54,10 @@ export default function Home() {
       {/* ── NAVBAR ── */}
       <nav className="landing-nav" style={navStyle}>
         <div className="container nav-content">
-          <div className="nav-logo">NutriSense</div>
+          <div className="nav-logo" style={{ fontSize: "20px" }}>AI-Based Nutritional Assessment System</div>
           <div className="nav-links">
-            <Link href="#features" className="nav-link">Features</Link>
-            <Link href="#how-it-works" className="nav-link">How it Works</Link>
+            <a href="#features" className="nav-link" onClick={(e) => scrollToSection(e, 'features')}>Features</a>
+            <a href="#how-it-works" className="nav-link" onClick={(e) => scrollToSection(e, 'how-it-works')}>How it Works</a>
             {token ? (
               <Link href="/dashboard" className="nav-btn">Dashboard</Link>
             ) : (
@@ -69,18 +77,16 @@ export default function Home() {
         
         <div className="container hero-content">
           <div className="hero-text">
-            <span className="eyebrow">NUTRISENSE</span>
-            <h1 className="hero-title">AI-Based Nutritional Assessment System</h1>
-            <p className="hero-subtitle">Understand your nutrition. Detect potential deficiencies. Build healthier habits.</p>
+            <h1 className="hero-title">Understand your nutrition. Detect potential deficiencies. Build healthier habits.</h1>
             <p className="hero-desc">Track your meals, analyze your nutritional intake, combine dietary and laboratory information, and receive personalized nutrition guidance.</p>
             
             <div className="hero-actions">
               <button onClick={handleGetStarted} className="btn-primary-large">
                 Get Started
               </button>
-              <Link href="#features" className="btn-secondary-large">
+              <a href="#features" className="btn-secondary-large" onClick={(e) => scrollToSection(e, 'features')}>
                 Explore Features
-              </Link>
+              </a>
             </div>
           </div>
           
@@ -97,7 +103,7 @@ export default function Home() {
                   <span>78%</span>
                 </div>
                 <div className="gci-bar-bg">
-                  <div className="gci-bar-fill" style={{ width: "78%" }}></div>
+                  <div className="gci-bar-fill" style={{ width: "78%", backgroundColor: "#ef4444" }}></div>
                 </div>
               </div>
 
@@ -117,7 +123,7 @@ export default function Home() {
                   <span>45%</span>
                 </div>
                 <div className="gci-bar-bg">
-                  <div className="gci-bar-fill" style={{ width: "45%", backgroundColor: "#ef4444" }}></div>
+                  <div className="gci-bar-fill" style={{ width: "45%", backgroundColor: "#10b981" }}></div>
                 </div>
               </div>
               
@@ -275,8 +281,8 @@ export default function Home() {
             </div>
             <div className="footer-links">
               <Link href="#">Home</Link>
-              <Link href="#features">Features</Link>
-              <Link href="#how-it-works">About</Link>
+              <a href="#features" onClick={(e) => scrollToSection(e, 'features')}>Features</a>
+              <a href="#how-it-works" onClick={(e) => scrollToSection(e, 'how-it-works')}>About</a>
               <a href="#" onClick={handleGetStarted}>Get Started</a>
             </div>
           </div>

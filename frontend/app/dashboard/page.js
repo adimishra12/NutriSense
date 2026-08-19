@@ -114,7 +114,7 @@ export default function Dashboard() {
               <h2 className="dash-card-title">Latest wellness score</h2>
               {latestAssessment ? (
                 <div className="dash-wellness-placeholder">
-                  <span className="dash-wellness-dash" style={{ color: "#4f46e5", fontWeight: "bold" }}>
+                  <span className="dash-wellness-dash" style={{ color: "#0f172a", fontWeight: "bold" }}>
                     {latestAssessment.overall_score}%
                   </span>
                   <p>Based on {latestAssessment.diary_days_used} days</p>

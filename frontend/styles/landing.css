@@ -67,7 +67,7 @@ html {
   align-items: center;
 }
 
-.nav-logo {
+.landing-page .nav-logo {
   font-size: 24px;
   font-weight: 800;
   color: #fff;
@@ -80,7 +80,7 @@ html {
   align-items: center;
 }
 
-.nav-link {
+.landing-page .nav-link {
   color: #fff;
   font-weight: 500;
   font-size: 15px;
@@ -88,7 +88,7 @@ html {
   transition: opacity 0.2s;
 }
 
-.nav-link:hover {
+.landing-page .nav-link:hover {
   opacity: 1;
 }
 
@@ -166,7 +166,7 @@ html {
   margin-bottom: 24px;
 }
 
-.hero-title {
+.landing-page .hero-title {
   font-size: 64px;
   font-weight: 800;
   color: #fff;
@@ -175,7 +175,7 @@ html {
   margin-bottom: 24px;
 }
 
-.hero-subtitle {
+.landing-page .hero-subtitle {
   font-size: 22px;
   font-weight: 500;
   color: #f1f5f9;
@@ -183,7 +183,7 @@ html {
   line-height: 1.4;
 }
 
-.hero-desc {
+.landing-page .hero-desc {
   font-size: 18px;
   color: #cbd5e1;
   margin-bottom: 40px;

@@ -165,7 +165,7 @@ body {
 }
 
 .card h1 {
-  color: #4f46e5;
+  color: #0f172a;
   font-size: 42px;
 }
 
@@ -183,7 +183,7 @@ body {
 .btn {
   cursor: pointer;
   color: #fff;
-  background: #4f46e5;
+  background: #0f172a;
   border: none;
   border-radius: 10px;
   width: 100%;
@@ -194,7 +194,7 @@ body {
 }
 
 .btn:hover {
-  background: #312e81;
+  background: #1e293b;
 }
 
 .signup {
@@ -202,7 +202,7 @@ body {
 }
 
 .signup:hover {
-  background: #2268d8;
+  background: #1e293b;
 }
 
 .login-container {
@@ -224,7 +224,7 @@ body {
 
 .login-card h1 {
   text-align: center;
-  color: #4f46e5;
+  color: #0f172a;
 }
 
 .login-card h2 {
@@ -263,7 +263,7 @@ body {
 .show-btn {
   cursor: pointer;
   color: #fff;
-  background: #4f46e5;
+  background: #0f172a;
   border: none;
   border-radius: 10px;
   width: 80px;
@@ -272,7 +272,7 @@ body {
 .login-btn {
   cursor: pointer;
   color: #fff;
-  background: #4f46e5;
+  background: #0f172a;
   border: none;
   border-radius: 10px;
   width: 100%;
@@ -282,7 +282,7 @@ body {
 }
 
 .login-btn:hover {
-  background: #3730a3;
+  background: #1e293b;
 }
 
 .signup-text {

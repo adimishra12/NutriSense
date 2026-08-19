@@ -29,7 +29,7 @@ body{
 
 .left-panel{
     width:50%;
-    background:linear-gradient(135deg,#4f46e5,#6366f1);
+    background:linear-gradient(135deg,#0f172a,#1e293b);
     color:#fff;
     padding:60px;
     display:flex;
@@ -155,12 +155,12 @@ body{
 }
 
 .input-box:focus-within{
-    border-color:#4f46e5;
+    border-color:#0f172a;
     box-shadow:0 0 0 3px rgba(22,163,74,.15);
 }
 
 .input-icon{
-    color:#4f46e5;
+    color:#0f172a;
     font-size:18px;
     flex-shrink:0;
 }
@@ -194,7 +194,7 @@ body{
 }
 
 .eye-btn:hover{
-    color:#4f46e5;
+    color:#0f172a;
 }
 
 /* =========================
@@ -224,7 +224,7 @@ body{
     padding:15px;
     border:none;
     border-radius:14px;
-    background:#4f46e5;
+    background:#0f172a;
     color:#fff;
     font-size:17px;
     font-weight:600;
@@ -233,7 +233,7 @@ body{
 }
 
 .primary-btn:hover{
-    background:#4338ca;
+    background:#1e293b;
 }
 
 .primary-btn:disabled{
@@ -254,7 +254,7 @@ body{
 }
 
 .login-options a{
-    color:#4f46e5;
+    color:#0f172a;
     text-decoration:none;
 }
 
@@ -265,7 +265,7 @@ body{
 }
 
 .bottom-text a{
-    color:#4f46e5;
+    color:#0f172a;
     text-decoration:none;
     font-weight:600;
     margin-left:5px;

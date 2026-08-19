@@ -57,7 +57,7 @@ html {
   display: flex;
 }
 
-.nav-logo {
+.landing-page .nav-logo {
   color: #fff;
   letter-spacing: -.5px;
   font-size: 24px;
@@ -70,7 +70,7 @@ html {
   display: flex;
 }
 
-.nav-link {
+.landing-page .nav-link {
   color: #fff;
   opacity: .9;
   font-size: 15px;
@@ -78,7 +78,7 @@ html {
   transition: opacity .2s;
 }
 
-.nav-link:hover {
+.landing-page .nav-link:hover {
   opacity: 1;
 }
 
@@ -152,7 +152,7 @@ html {
   display: inline-block;
 }
 
-.hero-title {
+.landing-page .hero-title {
   color: #fff;
   letter-spacing: -2px;
   margin-bottom: 24px;
@@ -161,7 +161,7 @@ html {
   line-height: 1.1;
 }
 
-.hero-subtitle {
+.landing-page .hero-subtitle {
   color: #f1f5f9;
   margin-bottom: 20px;
   font-size: 22px;
@@ -169,7 +169,7 @@ html {
   line-height: 1.4;
 }
 
-.hero-desc {
+.landing-page .hero-desc {
   color: #cbd5e1;
   max-width: 500px;
   margin-bottom: 40px;

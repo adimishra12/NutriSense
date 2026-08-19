@@ -16,7 +16,7 @@ background:#f8fafc;
 .left-panel{
 
 width:50%;
-background:linear-gradient(135deg,#4f46e5,#6366f1);
+background:linear-gradient(135deg,#0f172a,#1e293b);
 
 color:white;
 
@@ -158,7 +158,7 @@ margin-bottom:20px;
 
 .icon{
 
-color:#4f46e5;
+color:#0f172a;
 
 font-size:18px;
 
@@ -210,7 +210,7 @@ margin-bottom:25px;
 
 text-decoration:none;
 
-color:#4f46e5;
+color:#0f172a;
 
 }
 
@@ -224,7 +224,7 @@ border:none;
 
 border-radius:12px;
 
-background:#4f46e5;
+background:#0f172a;
 
 color:white;
 
@@ -238,7 +238,7 @@ transition:.3s;
 
 .login-btn:hover{
 
-background:#4338ca;
+background:#1e293b;
 
 }
 
@@ -254,7 +254,7 @@ margin-left:8px;
 
 text-decoration:none;
 
-color:#4f46e5;
+color:#0f172a;
 
 font-weight:bold;
 

@@ -18,7 +18,7 @@ body {
 
 .left-panel {
   color: #fff;
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  background: linear-gradient(135deg, #0f172a, #1e293b);
   flex-direction: column;
   justify-content: center;
   width: 50%;
@@ -128,12 +128,12 @@ body {
 }
 
 .input-box:focus-within {
-  border-color: #4f46e5;
+  border-color: #0f172a;
   box-shadow: 0 0 0 3px #16a34a26;
 }
 
 .input-icon {
-  color: #4f46e5;
+  color: #0f172a;
   flex-shrink: 0;
   font-size: 18px;
 }
@@ -163,7 +163,7 @@ body {
 }
 
 .eye-btn:hover {
-  color: #4f46e5;
+  color: #0f172a;
 }
 
 .strength-box {
@@ -183,7 +183,7 @@ body {
 .primary-btn {
   color: #fff;
   cursor: pointer;
-  background: #4f46e5;
+  background: #0f172a;
   border: none;
   border-radius: 14px;
   width: 100%;
@@ -194,7 +194,7 @@ body {
 }
 
 .primary-btn:hover {
-  background: #4338ca;
+  background: #1e293b;
 }
 
 .primary-btn:disabled {
@@ -211,7 +211,7 @@ body {
 }
 
 .login-options a {
-  color: #4f46e5;
+  color: #0f172a;
   text-decoration: none;
 }
 
@@ -222,7 +222,7 @@ body {
 }
 
 .bottom-text a {
-  color: #4f46e5;
+  color: #0f172a;
   margin-left: 5px;
   font-weight: 600;
   text-decoration: none;
