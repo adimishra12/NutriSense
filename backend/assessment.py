@@ -345,6 +345,59 @@ def get_latest_assessment(
     }
 
 
+# ── GET /assessment/history ─────────────────────────
+
+@router.get("/history")
+def get_assessment_history(
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    assessments = (
+        db.query(Assessment)
+        .filter(Assessment.user_id == current_user.id)
+        .order_by(Assessment.created_at.asc())
+        .all()
+    )
+
+    if not assessments:
+        return []
+
+    # Group assessments into 7-day windows starting from the date of the very first assessment.
+    # This prevents multiple assessments within the same week from spamming the progress chart.
+    first_date = assessments[0].created_at
+    grouped_assessments = {}
+
+    for assessment in assessments:
+        delta_days = (assessment.created_at - first_date).days
+        week_idx = delta_days // 7
+        # Overwriting ensures we keep the LATEST assessment for each 7-day window
+        grouped_assessments[week_idx] = assessment
+
+    history = []
+    # Create the history list based on the latest assessment in each week
+    for week_idx in sorted(grouped_assessments.keys()):
+        assessment = grouped_assessments[week_idx]
+        risks_list = json.loads(assessment.risks_json)
+        top_risks = risks_list[:2]
+        
+        # average_risk calculation inversely proportional to overall_score
+        average_risk = round(100 - assessment.overall_score, 1)
+
+        history.append({
+            "week": week_idx + 1,
+            "id": assessment.id,
+            "created_at": str(assessment.created_at),
+            "wellness_score": assessment.overall_score,
+            "average_risk": average_risk,
+            "top_risks": [
+                {"nutrient": r["nutrient"], "percentage": r["percentage"]}
+                for r in top_risks
+            ]
+        })
+
+    return history
+
+
 # ── GET /assessment/recommendations ─────────────────
 
 @router.get("/recommendations")

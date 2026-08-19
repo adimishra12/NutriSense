@@ -211,42 +211,53 @@ export default function AssessmentPage() {
               </div>
 
               {/* ── Right: Recommendation panel ── */}
-              <div className="assess-rec-panel">
-                <h3 className="assess-rec-heading">
-                  Recommended foods
-                </h3>
+              <div style={{ position: "sticky", top: "40px", display: "flex", flexDirection: "column", gap: "16px", width: "320px", minWidth: "280px" }}>
+                <div className="assess-rec-panel" style={{ position: "static", width: "100%", minWidth: "auto", margin: 0 }}>
+                  <h3 className="assess-rec-heading">
+                    Recommended foods
+                  </h3>
 
-                {loadingRecs ? (
-                  <div className="assess-loading">
-                    <div className="assess-spinner" />
-                  </div>
-                ) : Object.keys(recommendationsMap).length === 0 ? (
-                  <p style={{ color: "#6b7280", fontSize: 14 }}>
-                    No high-risk nutrients detected.
-                  </p>
-                ) : (
-                  <div className="assess-rec-list" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
-                    {assessment.risks.filter((r) => r.percentage > 45).map((risk) => (
-                      <div key={risk.nutrient}>
-                        <h4 style={{ fontSize: 14, fontWeight: 700, color: "#0f172a", marginBottom: 12, borderBottom: "1px solid #e5e7eb", paddingBottom: 8 }}>
-                          {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient}
-                        </h4>
-                        {recommendationsMap[risk.nutrient]?.length === 0 ? (
-                          <p style={{ color: "#6b7280", fontSize: 13 }}>No foods found.</p>
-                        ) : (
-                          recommendationsMap[risk.nutrient]?.map((food) => (
-                            <div key={food.id} className="assess-rec-row">
-                              <span className="assess-rec-name">{food.name}</span>
-                              <span className="assess-rec-nutrients">
-                                {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient} {food.nutrient_value}
-                              </span>
-                            </div>
-                          ))
-                        )}
-                      </div>
-                    ))}
-                  </div>
-                )}
+                  {loadingRecs ? (
+                    <div className="assess-loading">
+                      <div className="assess-spinner" />
+                    </div>
+                  ) : Object.keys(recommendationsMap).length === 0 ? (
+                    <p style={{ color: "#6b7280", fontSize: 14 }}>
+                      No high-risk nutrients detected.
+                    </p>
+                  ) : (
+                    <div className="assess-rec-list" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                      {assessment.risks.filter((r) => r.percentage > 45).map((risk) => (
+                        <div key={risk.nutrient}>
+                          <h4 style={{ fontSize: 14, fontWeight: 700, color: "#0f172a", marginBottom: 12, borderBottom: "1px solid #e5e7eb", paddingBottom: 8 }}>
+                            {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient}
+                          </h4>
+                          {recommendationsMap[risk.nutrient]?.length === 0 ? (
+                            <p style={{ color: "#6b7280", fontSize: 13 }}>No foods found.</p>
+                          ) : (
+                            recommendationsMap[risk.nutrient]?.map((food) => (
+                              <div key={food.id} className="assess-rec-row">
+                                <span className="assess-rec-name">{food.name}</span>
+                                <span className="assess-rec-nutrients">
+                                  {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient} {food.nutrient_value}
+                                </span>
+                              </div>
+                            ))
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                {/* ── Generate Meal Plan Button ── */}
+                <button 
+                  className="assess-run-btn" 
+                  style={{ width: "100%", padding: "14px", boxShadow: "0 2px 12px rgba(0, 0, 0, 0.06)" }}
+                  onClick={() => router.push("/meal-plan")}
+                >
+                  Generate 7 days meal plan
+                </button>
               </div>
             </div>
           )}

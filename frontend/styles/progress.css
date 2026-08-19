@@ -1,0 +1,173 @@
+/* =========================
+   PROGRESS PAGE
+========================= */
+
+.progress-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.progress-header {
+  margin-bottom: 32px;
+}
+
+.progress-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.progress-subtitle {
+  font-size: 15px;
+  color: #4b5563;
+  margin-bottom: 24px;
+}
+
+/* ── Average Risk Tracker ── */
+.progress-tracker-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+  margin-bottom: 32px;
+}
+
+.tracker-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 32px;
+}
+
+.tracker-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 24px;
+  height: 200px;
+  padding-bottom: 16px;
+  overflow-x: auto;
+}
+
+.tracker-bar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+  width: 40px;
+}
+
+.tracker-bar-wrap {
+  height: 160px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  background: #f1f5f9;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.tracker-bar {
+  width: 100%;
+  background: #0f172a;
+  border-radius: 6px;
+  transition: height 0.5s ease-out;
+}
+
+.tracker-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+/* ── History Section ── */
+.progress-history-section {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.history-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 24px;
+}
+
+.history-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.history-card {
+  padding-bottom: 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.history-card:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.history-card-header {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.history-card-details {
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.history-card-details span {
+  text-transform: capitalize;
+}
+
+/* ── Empty State ── */
+.progress-empty {
+  text-align: center;
+  padding: 64px 24px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.progress-empty h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 12px;
+}
+
+.progress-empty p {
+  font-size: 15px;
+  color: #4b5563;
+  margin-bottom: 24px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #0f172a;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary:hover {
+  background: #1e293b;
+}
