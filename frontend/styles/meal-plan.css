@@ -1,0 +1,180 @@
+/* =========================
+   MEAL PLAN
+========================= */
+
+.meal-plan-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.meal-plan-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 24px;
+}
+
+.meal-plan-title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.meal-plan-subtitle {
+  font-size: 15px;
+  color: #4b5563;
+  margin-bottom: 24px;
+}
+
+.meal-plan-focus {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 24px;
+}
+
+.btn-regenerate {
+  background: #0f172a;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-regenerate:hover {
+  background: #1e293b;
+}
+
+.btn-regenerate:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* ── Day Tabs ── */
+.day-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.day-tab {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #4b5563;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.day-tab:hover {
+  background: #f9fafb;
+}
+
+.day-tab.active {
+  background: #0f172a;
+  color: #fff;
+  border-color: #0f172a;
+}
+
+/* ── Plan Content ── */
+.meal-plan-content {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 32px;
+}
+
+.day-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 24px;
+}
+
+.meals-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.meal-item {
+  border-bottom: 1px solid #e5e7eb;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+
+.meal-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+
+.meal-type {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  text-transform: capitalize;
+  margin-bottom: 12px;
+}
+
+.meal-foods {
+  font-size: 15px;
+  color: #111827;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.meal-meta {
+  font-size: 13px;
+  color: #6b7280;
+  line-height: 1.5;
+}
+
+/* ── Empty State ── */
+.meal-plan-empty {
+  text-align: center;
+  padding: 64px 24px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
+
+.meal-plan-empty h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.meal-plan-empty p {
+  font-size: 15px;
+  color: #4b5563;
+  margin-bottom: 24px;
+}
+
+.btn-primary {
+  display: inline-block;
+  background: #0f172a;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 100px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #1e293b;
+}
