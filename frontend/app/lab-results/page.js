@@ -125,17 +125,19 @@ export default function LabResults() {
                   step="any"
                   className="form-control"
                   name="hemoglobin_g_dl"
+                  placeholder="e.g. 13.5 - 17.5"
                   value={form.hemoglobin_g_dl}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-group" style={{ marginBottom: 0 }}>
-                <label>Serum Vitamin D</label>
+                <label>Serum Vitamin D (nmol/L)</label>
                 <input
                   type="number"
                   step="any"
                   className="form-control"
                   name="serum_vitamin_d"
+                  placeholder="e.g. 75 - 250"
                   value={form.serum_vitamin_d}
                   onChange={handleChange}
                 />
@@ -144,23 +146,25 @@ export default function LabResults() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '20px' }}>
               <div className="form-group" style={{ marginBottom: 0 }}>
-                <label>Ferritin</label>
+                <label>Ferritin (ng/mL)</label>
                 <input
                   type="number"
                   step="any"
                   className="form-control"
                   name="ferritin"
+                  placeholder="e.g. 24 - 336"
                   value={form.ferritin}
                   onChange={handleChange}
                 />
               </div>
               <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
-                <label>Vitamin B12</label>
+                <label>Vitamin B12 (pg/mL)</label>
                 <input
                   type="number"
                   step="any"
                   className="form-control"
                   name="vitamin_b12"
+                  placeholder="e.g. 200 - 900"
                   value={form.vitamin_b12}
                   onChange={handleChange}
                 />
@@ -169,12 +173,13 @@ export default function LabResults() {
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '32px' }}>
               <div className="form-group" style={{ marginBottom: 0 }}>
-                <label>Calcium</label>
+                <label>Calcium (mg/dL)</label>
                 <input
                   type="number"
                   step="any"
                   className="form-control"
                   name="calcium"
+                  placeholder="e.g. 8.5 - 10.5"
                   value={form.calcium}
                   onChange={handleChange}
                 />
