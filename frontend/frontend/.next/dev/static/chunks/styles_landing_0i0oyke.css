@@ -4,9 +4,9 @@ html {
 }
 
 .landing-page {
-  --color-green-dark: #064e3b;
-  --color-green-primary: #047857;
-  --color-green-light: #10b981;
+  --color-brand-dark: #064e3b;
+  --color-brand-primary: #047857;
+  --color-brand-light: #10b981;
   --color-cream: #fafaf9;
   --color-cream-darker: #f5f5f4;
   --color-slate-dark: #0f172a;
@@ -95,7 +95,7 @@ html {
 }
 
 .nav-btn:hover {
-  color: var(--color-green-dark);
+  color: var(--color-brand-dark);
   background: #fff;
 }
 
@@ -144,7 +144,7 @@ html {
 }
 
 .eyebrow {
-  color: var(--color-green-light);
+  color: var(--color-brand-light);
   letter-spacing: 2px;
   margin-bottom: 24px;
   font-size: 14px;
@@ -183,7 +183,7 @@ html {
 }
 
 .btn-primary-large {
-  background: var(--color-green-light);
+  background: var(--color-brand-light);
   color: #fff;
   cursor: pointer;
   border: none;
@@ -275,7 +275,7 @@ html {
 }
 
 .gci-bar-fill {
-  background: var(--color-green-light);
+  background: var(--color-brand-light);
   border-radius: 4px;
   height: 100%;
 }
@@ -373,7 +373,7 @@ html {
 .fc-icon {
   width: 48px;
   height: 48px;
-  color: var(--color-green-primary);
+  color: var(--color-brand-primary);
   background: #0478571a;
   border-radius: 12px;
   justify-content: center;
@@ -419,7 +419,7 @@ html {
 
 .step-number {
   letter-spacing: 2px;
-  color: var(--color-green-light);
+  color: var(--color-brand-light);
   margin-bottom: 16px;
   font-size: 14px;
   font-weight: 700;
@@ -472,7 +472,7 @@ html {
 }
 
 .cta-section {
-  background: var(--color-green-dark);
+  background: var(--color-brand-dark);
   text-align: center;
   color: #fff;
   padding: 120px 0;
@@ -532,7 +532,7 @@ html {
 }
 
 .footer-links a:hover {
-  color: var(--color-green-primary);
+  color: var(--color-brand-primary);
 }
 
 .footer-disclaimer {
@@ -544,7 +544,7 @@ html {
 }
 
 @media (max-width: 1024px) {
-  .hero-title {
+  .landing-page .hero-title {
     font-size: 48px;
   }
 
@@ -615,11 +615,11 @@ html {
 }
 
 @media (max-width: 480px) {
-  .hero-title {
+  .landing-page .hero-title {
     font-size: 36px;
   }
 
-  .hero-subtitle {
+  .landing-page .hero-subtitle {
     font-size: 18px;
   }
 

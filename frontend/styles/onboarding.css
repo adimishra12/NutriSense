@@ -30,7 +30,7 @@
   font-family: var(--font-poppins);
   font-size: 16px;
   font-weight: 700;
-  color: var(--color-green-primary);
+  color: var(--color-brand-primary);
   margin-bottom: 8px;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -94,7 +94,7 @@
 
 .ob-field input:focus,
 .ob-field select:focus {
-  border-color: var(--color-green-light);
+  border-color: var(--color-brand-light);
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
@@ -137,15 +137,15 @@
 }
 
 .ob-pill:hover {
-  border-color: var(--color-green-light);
-  color: var(--color-green-dark);
+  border-color: var(--color-brand-light);
+  color: var(--color-brand-dark);
   background: rgba(16, 185, 129, 0.05);
 }
 
 .ob-pill.selected {
-  background: var(--color-green-primary);
+  background: var(--color-brand-primary);
   color: var(--color-white);
-  border-color: var(--color-green-primary);
+  border-color: var(--color-brand-primary);
   box-shadow: 0 4px 12px rgba(4, 120, 87, 0.2);
 }
 
@@ -155,7 +155,7 @@
   margin-top: 16px;
   border: none;
   border-radius: 12px;
-  background: var(--color-green-primary);
+  background: var(--color-brand-primary);
   color: var(--color-white);
   font-size: 16px;
   font-weight: 600;
@@ -165,7 +165,7 @@
 }
 
 .ob-submit:hover:not(:disabled) {
-  background: var(--color-green-dark);
+  background: var(--color-brand-dark);
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(4, 120, 87, 0.3);
 }

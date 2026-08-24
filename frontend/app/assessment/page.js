@@ -148,7 +148,7 @@ export default function AssessmentPage() {
             </div>
           ) : !assessment ? (
             <div className="empty-state" style={{ maxWidth: '600px', margin: '0 auto' }}>
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-green-primary)', marginBottom: '16px' }}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-brand-primary)', marginBottom: '16px' }}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
               <h2 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--color-slate-dark)', marginBottom: '12px' }}>No assessment yet</h2>
               <p style={{ fontSize: '15px', color: 'var(--color-slate-medium)', marginBottom: '24px', lineHeight: 1.6 }}>
                 Log at least 4 consecutive complete days of meals (Breakfast, Lunch,
@@ -163,12 +163,12 @@ export default function AssessmentPage() {
               </button>
             </div>
           ) : (
-            <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
+            <div className="assessment-main-layout">
               {/* ── Left: Deficiency risks ── */}
               <div className="premium-card" style={{ flex: 1 }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>
                   <h2 style={{ fontSize: '20px', margin: 0 }}>Deficiency Risks</h2>
-                  <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '6px 12px', borderRadius: '100px', color: 'var(--color-green-dark)', fontWeight: '600', fontSize: '14px' }}>
+                  <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '6px 12px', borderRadius: '100px', color: 'var(--color-brand-dark)', fontWeight: '600', fontSize: '14px' }}>
                     Wellness Score: {assessment.overall_score}%
                   </div>
                 </div>
@@ -195,9 +195,10 @@ export default function AssessmentPage() {
                     return (
                       <div
                         key={risk.nutrient}
-                        style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: 'var(--color-white)', border: '1px solid var(--color-border)', borderRadius: '12px', opacity: isLowRisk ? 0.6 : 1 }}
+                        className="risk-row"
+                        style={{ padding: '16px', background: 'var(--color-white)', border: '1px solid var(--color-border)', borderRadius: '12px', opacity: isLowRisk ? 0.6 : 1 }}
                       >
-                        <span style={{ width: '120px', fontSize: '15px', fontWeight: '600', color: 'var(--color-slate-dark)' }}>
+                        <span className="risk-label">
                           {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient}
                         </span>
 
@@ -221,7 +222,7 @@ export default function AssessmentPage() {
               </div>
 
               {/* ── Right: Recommendation panel ── */}
-              <div style={{ width: '340px', display: 'flex', flexDirection: 'column', gap: '16px', position: 'sticky', top: '40px' }}>
+              <div className="assessment-side-panel">
                 <div className="premium-card">
                   <h3 style={{ fontSize: '18px', marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>
                     Recommended Foods
@@ -249,7 +250,7 @@ export default function AssessmentPage() {
                               {recommendationsMap[risk.nutrient]?.map((food) => (
                                 <div key={food.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 12px', background: 'var(--color-cream-darker)', borderRadius: '8px', fontSize: '13px' }}>
                                   <span style={{ fontWeight: '500', color: 'var(--color-slate-dark)' }}>{food.name}</span>
-                                  <span style={{ color: 'var(--color-green-dark)', fontWeight: '600' }}>
+                                  <span style={{ color: 'var(--color-brand-dark)', fontWeight: '600' }}>
                                     {food.nutrient_value}
                                   </span>
                                 </div>

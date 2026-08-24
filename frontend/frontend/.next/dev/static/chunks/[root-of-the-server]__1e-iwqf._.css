@@ -138,9 +138,9 @@
 
 /* [project]/app/globals.css [app-client] (css) */
 :root {
-  --color-green-dark: #064e3b;
-  --color-green-primary: #047857;
-  --color-green-light: #10b981;
+  --color-brand-dark: #064e3b;
+  --color-brand-primary: #047857;
+  --color-brand-light: #10b981;
   --color-cream: #fafaf9;
   --color-cream-darker: #f5f5f4;
   --color-slate-dark: #0f172a;
@@ -172,6 +172,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-poppins);
   color: var(--color-slate-dark);
@@ -185,13 +190,13 @@ p {
 }
 
 a {
-  color: var(--color-green-primary);
+  color: var(--color-brand-primary);
   text-decoration: none;
   transition: color .2s;
 }
 
 a:hover {
-  color: var(--color-green-dark);
+  color: var(--color-brand-dark);
 }
 
 .premium-card {
@@ -203,12 +208,19 @@ a:hover {
   transition: transform .2s, box-shadow .2s;
 }
 
+@media (max-width: 768px) {
+  .premium-card {
+    border-radius: 12px;
+    padding: 20px;
+  }
+}
+
 .premium-card:hover {
   box-shadow: var(--shadow-lg);
 }
 
 .btn-primary {
-  background-color: var(--color-green-primary);
+  background-color: var(--color-brand-primary);
   color: var(--color-white);
   cursor: pointer;
   font-weight: 500;
@@ -224,7 +236,7 @@ a:hover {
 }
 
 .btn-primary:hover {
-  background-color: var(--color-green-dark);
+  background-color: var(--color-brand-dark);
   transform: translateY(-1px);
 }
 
@@ -274,7 +286,7 @@ a:hover {
 }
 
 .form-control:focus {
-  border-color: var(--color-green-light);
+  border-color: var(--color-brand-light);
   outline: none;
   box-shadow: 0 0 0 3px #10b9811a;
 }
@@ -292,6 +304,12 @@ a:hover {
   padding: 40px;
 }
 
+@media (max-width: 768px) {
+  .main-content {
+    padding: 24px 16px;
+  }
+}
+
 .page-header {
   margin-bottom: 32px;
 }
@@ -299,6 +317,12 @@ a:hover {
 .page-header h1 {
   letter-spacing: -.5px;
   font-size: 32px;
+}
+
+@media (max-width: 768px) {
+  .page-header h1 {
+    font-size: 24px;
+  }
 }
 
 .page-header p {
@@ -406,11 +430,11 @@ a:hover {
 }
 
 .auth-brand-side {
-  background: linear-gradient(135deg, var(--color-green-dark), var(--color-green-primary));
+  background: linear-gradient(135deg, var(--color-brand-dark), var(--color-brand-primary));
   color: #fff;
   text-align: center;
   flex-direction: column;
-  flex: 1;
+  flex: .4;
   justify-content: center;
   align-items: center;
   padding: 40px;
@@ -430,17 +454,21 @@ a:hover {
 }
 
 .auth-form-side {
-  background: var(--color-white);
-  flex: 1;
+  background: var(--color-cream);
+  flex: .6;
   justify-content: center;
   align-items: center;
   display: flex;
 }
 
 .auth-form-container {
+  background: var(--color-white);
   width: 100%;
-  max-width: 400px;
-  padding: 40px;
+  max-width: 480px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  padding: 48px 40px;
 }
 
 @media (max-width: 768px) {

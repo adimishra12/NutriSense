@@ -230,7 +230,7 @@ export default function ProfilePage() {
             </p>
           </div>
           
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '32px', alignItems: 'flex-start' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px', alignItems: 'flex-start' }}>
             
             {/* ── Account Settings Card ── */}
             <div className="premium-card">
@@ -331,7 +331,7 @@ export default function ProfilePage() {
                 Used for personalized nutrition targets and meal filters.
               </p>
               
-              <div style={{ display: 'flex', gap: '16px' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '16px' }}>
                 <div className="form-group" style={{ flex: 1 }}>
                   <label>Age</label>
                   <input
@@ -409,9 +409,9 @@ export default function ProfilePage() {
                         style={{
                           padding: '8px 14px',
                           border: '1px solid',
-                          borderColor: isSelected ? 'var(--color-green-primary)' : 'var(--color-border)',
+                          borderColor: isSelected ? 'var(--color-brand-primary)' : 'var(--color-border)',
                           borderRadius: '100px',
-                          background: isSelected ? 'var(--color-green-primary)' : 'var(--color-white)',
+                          background: isSelected ? 'var(--color-brand-primary)' : 'var(--color-white)',
                           color: isSelected ? 'var(--color-white)' : 'var(--color-slate-medium)',
                           fontSize: '13px',
                           fontWeight: '500',

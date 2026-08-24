@@ -86,7 +86,7 @@ export default function Login() {
                         <span style={{ color: 'var(--color-slate-medium)' }}>Remember Me</span>
                     </label>
 
-                    <Link href="#" style={{ color: 'var(--color-green-primary)', fontWeight: '500' }}>
+                    <Link href="#" style={{ color: 'var(--color-brand-primary)', fontWeight: '500' }}>
                         Forgot Password?
                     </Link>
                 </div>
@@ -98,7 +98,7 @@ export default function Login() {
 
             <div style={{ marginTop: '32px', textAlign: 'center', fontSize: '15px', color: 'var(--color-slate-medium)' }}>
                 Don't have an account?{' '}
-                <Link href="/signup" style={{ color: 'var(--color-green-primary)', fontWeight: '600' }}>
+                <Link href="/signup" style={{ color: 'var(--color-brand-primary)', fontWeight: '600' }}>
                     Sign Up
                 </Link>
             </div>

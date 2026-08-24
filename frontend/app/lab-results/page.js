@@ -117,8 +117,8 @@ export default function LabResults() {
           </div>
           
           <div className="premium-card">
-            <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
-              <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '20px' }}>
+              <div className="form-group" style={{ marginBottom: 0 }}>
                 <label>Hemoglobin (g/dL)</label>
                 <input
                   type="number"
@@ -129,7 +129,7 @@ export default function LabResults() {
                   onChange={handleChange}
                 />
               </div>
-              <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+              <div className="form-group" style={{ marginBottom: 0 }}>
                 <label>Serum Vitamin D</label>
                 <input
                   type="number"
@@ -142,8 +142,8 @@ export default function LabResults() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
-              <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '20px' }}>
+              <div className="form-group" style={{ marginBottom: 0 }}>
                 <label>Ferritin</label>
                 <input
                   type="number"
@@ -167,8 +167,8 @@ export default function LabResults() {
               </div>
             </div>
 
-            <div style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>
-              <div className="form-group" style={{ flex: 0.5, marginBottom: 0 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '16px', marginBottom: '32px' }}>
+              <div className="form-group" style={{ marginBottom: 0 }}>
                 <label>Calcium</label>
                 <input
                   type="number"
@@ -179,7 +179,6 @@ export default function LabResults() {
                   onChange={handleChange}
                 />
               </div>
-              <div style={{ flex: 0.5 }}></div>
             </div>
 
             <button

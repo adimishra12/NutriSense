@@ -118,8 +118,10 @@ export default function MealPlan() {
               <p className="page-subtitle" style={{ margin: 0 }}>
                 Rule-based plan targeting your top deficiencies.
               </p>
-              <div style={{ display: 'inline-block', marginTop: '12px', padding: '6px 12px', background: 'var(--color-cream-darker)', borderRadius: '100px', fontSize: '13px', fontWeight: '500', color: 'var(--color-slate-medium)' }}>
-                <span style={{ color: 'var(--color-slate-dark)', fontWeight: '600' }}>Focus:</span> {planData.focus_nutrients.replace(/_/g, " ")} <span style={{ margin: '0 8px', color: 'var(--color-slate-light)' }}>|</span> <span style={{ color: 'var(--color-slate-dark)', fontWeight: '600' }}>Diet:</span> {planData.diet_filter}
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginTop: '12px', padding: '8px 12px', background: 'var(--color-cream-darker)', borderRadius: '12px', fontSize: '13px', fontWeight: '500', color: 'var(--color-slate-medium)' }}>
+                <span><span style={{ color: 'var(--color-slate-dark)', fontWeight: '600' }}>Focus:</span> {planData.focus_nutrients.replace(/_/g, " ")}</span>
+                <span style={{ color: 'var(--color-slate-light)' }}>|</span>
+                <span><span style={{ color: 'var(--color-slate-dark)', fontWeight: '600' }}>Diet:</span> {planData.diet_filter}</span>
               </div>
             </div>
             <button 
@@ -139,8 +141,8 @@ export default function MealPlan() {
                   padding: '10px 24px', 
                   borderRadius: '100px', 
                   border: '1px solid', 
-                  borderColor: index === selectedDayIndex ? 'var(--color-green-primary)' : 'var(--color-border)', 
-                  background: index === selectedDayIndex ? 'var(--color-green-primary)' : 'var(--color-white)', 
+                  borderColor: index === selectedDayIndex ? 'var(--color-brand-primary)' : 'var(--color-border)', 
+                  background: index === selectedDayIndex ? 'var(--color-brand-primary)' : 'var(--color-white)', 
                   color: index === selectedDayIndex ? 'var(--color-white)' : 'var(--color-slate-dark)',
                   fontSize: '14px',
                   fontWeight: '600',
@@ -169,7 +171,7 @@ export default function MealPlan() {
                   
                   return (
                     <div key={mealType} style={{ padding: '16px', background: 'var(--color-cream-darker)', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
-                      <h3 style={{ fontSize: '14px', textTransform: 'capitalize', fontWeight: '700', color: 'var(--color-green-dark)', marginBottom: '8px' }}>
+                      <h3 style={{ fontSize: '14px', textTransform: 'capitalize', fontWeight: '700', color: 'var(--color-brand-dark)', marginBottom: '8px' }}>
                         {mealType}
                       </h3>
                       <p style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-slate-dark)', marginBottom: '8px', lineHeight: 1.4 }}>

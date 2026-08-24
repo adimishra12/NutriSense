@@ -146,7 +146,7 @@ export default function Signup() {
 
             <div style={{ marginTop: '32px', textAlign: 'center', fontSize: '15px', color: 'var(--color-slate-medium)' }}>
                 Already have an account?{' '}
-                <Link href="/login" style={{ color: 'var(--color-green-primary)', fontWeight: '600' }}>Login</Link>
+                <Link href="/login" style={{ color: 'var(--color-brand-primary)', fontWeight: '600' }}>Login</Link>
             </div>
 
         </AuthLayout>

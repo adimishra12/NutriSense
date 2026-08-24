@@ -86,11 +86,11 @@ export default function Dashboard() {
           </div>
 
           {/* ── Top cards ── */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', marginBottom: '32px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '24px', marginBottom: '32px' }}>
             {/* Diary status */}
             <div className="premium-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <div style={{ padding: '10px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', color: 'var(--color-green-primary)' }}>
+                <div style={{ padding: '10px', background: 'rgba(16, 185, 129, 0.1)', borderRadius: '12px', color: 'var(--color-brand-primary)' }}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
                 </div>
                 <h2 style={{ fontSize: '18px', margin: 0 }}>Diary Status</h2>
@@ -99,11 +99,11 @@ export default function Dashboard() {
                 <strong style={{ fontSize: '32px', color: 'var(--color-slate-dark)', display: 'block', marginBottom: '4px' }}>{daysLogged}</strong>
                 days logged {daysLogged < 4 && <span style={{ color: 'var(--color-warning)' }}>— need 4 to assess</span>}
               </p>
-              <div style={{ display: 'flex', gap: '12px' }}>
+              <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                 <button
                   className="btn-secondary"
                   onClick={() => router.push("/diary")}
-                  style={{ flex: 1 }}
+                  style={{ flex: '1 1 120px' }}
                 >
                   Log Meal
                 </button>
@@ -111,7 +111,7 @@ export default function Dashboard() {
                   className="btn-primary"
                   disabled={daysLogged < 4}
                   onClick={() => router.push("/assessment")}
-                  style={{ flex: 1, opacity: daysLogged < 4 ? 0.5 : 1 }}
+                  style={{ flex: '1 1 120px', opacity: daysLogged < 4 ? 0.5 : 1 }}
                 >
                   Assess
                 </button>
@@ -121,14 +121,14 @@ export default function Dashboard() {
             {/* Wellness score */}
             <div className="premium-card">
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
-                <div style={{ padding: '10px', background: 'rgba(4, 120, 87, 0.1)', borderRadius: '12px', color: 'var(--color-green-dark)' }}>
+                <div style={{ padding: '10px', background: 'rgba(4, 120, 87, 0.1)', borderRadius: '12px', color: 'var(--color-brand-dark)' }}>
                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
                 </div>
                 <h2 style={{ fontSize: '18px', margin: 0 }}>Latest Wellness Score</h2>
               </div>
               {latestAssessment ? (
                 <div>
-                  <span style={{ fontSize: '36px', fontWeight: '700', color: 'var(--color-green-dark)', display: 'block', marginBottom: '4px' }}>
+                  <span style={{ fontSize: '36px', fontWeight: '700', color: 'var(--color-brand-dark)', display: 'block', marginBottom: '4px' }}>
                     {latestAssessment.overall_score}%
                   </span>
                   <p style={{ fontSize: '14px', color: 'var(--color-slate-medium)' }}>Based on {latestAssessment.diary_days_used} days</p>
@@ -172,14 +172,14 @@ export default function Dashboard() {
                   const label = displayNames[risk.nutrient] || risk.nutrient;
 
                   return (
-                    <div key={risk.nutrient} style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-                      <span style={{ width: '120px', fontSize: '14px', fontWeight: '500', color: 'var(--color-slate-dark)' }}>{label}</span>
+                    <div key={risk.nutrient} style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <span style={{ width: '90px', fontSize: '14px', fontWeight: '500', color: 'var(--color-slate-dark)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{label}</span>
                       <div style={{ flex: 1, height: '10px', background: 'var(--color-cream-darker)', borderRadius: '100px', overflow: 'hidden' }}>
                         <div
                           style={{ width: `${pct}%`, height: '100%', background: barColor, borderRadius: '100px', transition: 'width 1s ease-out' }}
                         />
                       </div>
-                      <span style={{ width: '48px', textAlign: 'right', fontSize: '14px', fontWeight: '600', color: 'var(--color-slate-medium)' }}>{pct}%</span>
+                      <span style={{ width: '40px', textAlign: 'right', fontSize: '14px', fontWeight: '600', color: 'var(--color-slate-medium)' }}>{pct}%</span>
                     </div>
                   );
                 })}

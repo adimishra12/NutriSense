@@ -63,9 +63,9 @@ export default function ProgressPage() {
         <Sidebar />
         <main className="page-with-sidebar">
           <div className="page-content">
-            <div className="progress-header">
-              <h1 className="progress-title">Progress</h1>
-              <p className="progress-subtitle">
+            <div className="page-header">
+              <h1 className="page-title">Progress</h1>
+              <p className="page-subtitle">
                 Track your nutrition improvement over time.
               </p>
             </div>
@@ -95,7 +95,7 @@ export default function ProgressPage() {
             </p>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '32px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '32px' }}>
             <div className="premium-card">
               <h2 style={{ fontSize: '18px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>Average risk (lower is better)</h2>
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', height: '240px', padding: '16px 0', overflowX: 'auto', scrollbarWidth: 'none' }}>
@@ -103,7 +103,7 @@ export default function ProgressPage() {
                   <div key={item.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', minWidth: '40px' }}>
                     <div style={{ height: '180px', width: '24px', background: 'var(--color-cream-darker)', borderRadius: '100px', display: 'flex', alignItems: 'flex-end', overflow: 'hidden' }} title={`Average risk: ${item.average_risk}%`}>
                       <div 
-                        style={{ width: '100%', background: 'var(--color-green-primary)', height: `${item.average_risk}%`, borderRadius: '100px', transition: 'height 1s ease-out' }}
+                        style={{ width: '100%', background: 'var(--color-brand-primary)', height: `${item.average_risk}%`, borderRadius: '100px', transition: 'height 1s ease-out' }}
                       ></div>
                     </div>
                     <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-slate-medium)' }}>W{item.week}</span>
@@ -122,7 +122,7 @@ export default function ProgressPage() {
 
                   return (
                     <div key={item.id} style={{ padding: '16px', background: 'var(--color-cream-darker)', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
-                      <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--color-green-dark)', marginBottom: '8px' }}>
+                      <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--color-brand-dark)', marginBottom: '8px' }}>
                         W{item.week} <span style={{ color: 'var(--color-slate-light)', margin: '0 8px', fontWeight: '400' }}>|</span> Score {item.wellness_score}%
                       </div>
                       <div 
