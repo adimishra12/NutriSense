@@ -464,7 +464,7 @@ html {
   font-weight: 700;
 }
 
-.ds-text {
+.data-sources .ds-text {
   max-width: 600px;
   color: var(--color-slate-light);
   margin: 32px auto 0;

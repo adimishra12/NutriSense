@@ -485,7 +485,7 @@ html {
   color: var(--color-slate-medium);
 }
 
-.ds-text {
+.data-sources .ds-text {
   max-width: 600px;
   margin: 32px auto 0;
   font-size: 14px;
