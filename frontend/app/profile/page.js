@@ -223,118 +223,129 @@ export default function ProfilePage() {
       <Sidebar />
       <main className="page-with-sidebar">
         <div className="page-content">
-          <h1 style={{ fontSize: 24, fontWeight: 700, color: "#14502e", marginBottom: 8 }}>Profile</h1>
-          <p style={{ fontSize: 15, color: "#6b7280", marginBottom: 32 }}>
-            Account on the left, health profile on the right.
-          </p>
+          <div className="page-header">
+            <h1 className="page-title">Profile</h1>
+            <p className="page-subtitle">
+              Account on the left, health profile on the right.
+            </p>
+          </div>
           
-          <div className="profile-layout">
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '32px', alignItems: 'flex-start' }}>
             
             {/* ── Account Settings Card ── */}
-            <div className="profile-card">
-              <h2 className="profile-card-title">Account settings</h2>
-              <p className="profile-card-desc">
+            <div className="premium-card">
+              <h2 style={{ fontSize: '20px', marginBottom: '8px', color: 'var(--color-slate-dark)' }}>Account Settings</h2>
+              <p style={{ fontSize: '14px', color: 'var(--color-slate-medium)', marginBottom: '24px', lineHeight: 1.5 }}>
                 You can update name or email anytime. Current password is only needed to set a new password.
               </p>
               
-              <div className="profile-field">
-                <label>Full name</label>
+              <div className="form-group">
+                <label>Full Name</label>
                 <input
                   type="text"
+                  className="form-control"
                   name="full_name"
                   value={accountForm.full_name}
                   onChange={handleAccountChange}
                 />
               </div>
               
-              <div className="profile-field">
+              <div className="form-group">
                 <label>Email</label>
                 <input
                   type="email"
+                  className="form-control"
                   name="email"
                   value={accountForm.email}
                   onChange={handleAccountChange}
                 />
               </div>
               
-              <div className="profile-field">
-                <label>Current password</label>
-                <div className="profile-password-wrapper">
+              <div className="form-group">
+                <label>Current Password</label>
+                <div style={{ position: 'relative' }}>
                   <input
                     type={showCurrent ? "text" : "password"}
+                    className="form-control"
                     name="current_password"
                     placeholder="Only needed to set a new password"
                     value={accountForm.current_password}
                     onChange={handleAccountChange}
+                    style={{ paddingRight: '44px' }}
                   />
-                  <span className="profile-eye" onClick={() => setShowCurrent(!showCurrent)}>
+                  <span style={{ position: 'absolute', right: '16px', top: '15px', cursor: 'pointer', color: 'var(--color-slate-light)' }} onClick={() => setShowCurrent(!showCurrent)}>
                     {showCurrent ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 </div>
               </div>
               
-              <div className="profile-field">
-                <label>New password</label>
-                <div className="profile-password-wrapper">
+              <div className="form-group">
+                <label>New Password</label>
+                <div style={{ position: 'relative' }}>
                   <input
                     type={showNew ? "text" : "password"}
+                    className="form-control"
                     name="new_password"
                     placeholder="Leave blank to keep current"
                     value={accountForm.new_password}
                     onChange={handleAccountChange}
+                    style={{ paddingRight: '44px' }}
                   />
-                  <span className="profile-eye" onClick={() => setShowNew(!showNew)}>
+                  <span style={{ position: 'absolute', right: '16px', top: '15px', cursor: 'pointer', color: 'var(--color-slate-light)' }} onClick={() => setShowNew(!showNew)}>
                     {showNew ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 </div>
               </div>
               
-              <div className="profile-field">
-                <label>Confirm new password</label>
-                <div className="profile-password-wrapper">
+              <div className="form-group">
+                <label>Confirm New Password</label>
+                <div style={{ position: 'relative' }}>
                   <input
                     type={showConfirm ? "text" : "password"}
+                    className="form-control"
                     name="confirm_new_password"
                     value={accountForm.confirm_new_password}
                     onChange={handleAccountChange}
+                    style={{ paddingRight: '44px' }}
                   />
-                  <span className="profile-eye" onClick={() => setShowConfirm(!showConfirm)}>
+                  <span style={{ position: 'absolute', right: '16px', top: '15px', cursor: 'pointer', color: 'var(--color-slate-light)' }} onClick={() => setShowConfirm(!showConfirm)}>
                     {showConfirm ? <FaEyeSlash /> : <FaEye />}
                   </span>
                 </div>
               </div>
               
               <button 
-                className="profile-submit" 
+                className="btn-primary w-full" 
                 onClick={handleSaveAccount}
                 disabled={savingAccount}
+                style={{ marginTop: '8px' }}
               >
-                {savingAccount ? "Saving..." : "Save account"}
+                {savingAccount ? "Saving..." : "Save Account"}
               </button>
             </div>
             
             {/* ── Health Profile Card ── */}
-            <div className="profile-card">
-              <h2 className="profile-card-title">Health profile</h2>
-              <p className="profile-card-desc">
-                Same fields as health onboarding — used for assessments and meal filters.<br/><br/>
-                Health profile saved — meal filters and RDA targets will use these values.
+            <div className="premium-card">
+              <h2 style={{ fontSize: '20px', marginBottom: '8px', color: 'var(--color-slate-dark)' }}>Health Profile</h2>
+              <p style={{ fontSize: '14px', color: 'var(--color-slate-medium)', marginBottom: '24px', lineHeight: 1.5 }}>
+                Used for personalized nutrition targets and meal filters.
               </p>
               
-              <div className="profile-row">
-                <div className="profile-field">
+              <div style={{ display: 'flex', gap: '16px' }}>
+                <div className="form-group" style={{ flex: 1 }}>
                   <label>Age</label>
                   <input
                     type="number"
+                    className="form-control"
                     name="age"
                     value={healthForm.age}
                     onChange={handleHealthChange}
                     min="1"
                   />
                 </div>
-                <div className="profile-field">
+                <div className="form-group" style={{ flex: 1 }}>
                   <label>Sex</label>
-                  <select name="gender" value={healthForm.gender} onChange={handleHealthChange}>
+                  <select className="form-control" name="gender" value={healthForm.gender} onChange={handleHealthChange}>
                     <option value="">Select</option>
                     <option value="male">Male</option>
                     <option value="female">Female</option>
@@ -342,29 +353,31 @@ export default function ProfilePage() {
                 </div>
               </div>
               
-              <div className="profile-field">
+              <div className="form-group">
                 <label>Height (cm)</label>
                 <input
                   type="number"
+                  className="form-control"
                   name="height_cm"
                   value={healthForm.height_cm}
                   onChange={handleHealthChange}
                 />
               </div>
               
-              <div className="profile-field">
+              <div className="form-group">
                 <label>Weight (kg)</label>
                 <input
                   type="number"
+                  className="form-control"
                   name="weight_kg"
                   value={healthForm.weight_kg}
                   onChange={handleHealthChange}
                 />
               </div>
               
-              <div className="profile-field">
-                <label>Activity level</label>
-                <select name="activity_level" value={healthForm.activity_level} onChange={handleHealthChange}>
+              <div className="form-group">
+                <label>Activity Level</label>
+                <select className="form-control" name="activity_level" value={healthForm.activity_level} onChange={handleHealthChange}>
                   <option value="">Select</option>
                   <option value="sedentary">Sedentary</option>
                   <option value="lightly_active">Lightly active</option>
@@ -373,43 +386,56 @@ export default function ProfilePage() {
                 </select>
               </div>
               
-              <div className="profile-field">
-                <label>Health goal</label>
+              <div className="form-group">
+                <label>Health Goal</label>
                 <input
                   type="text"
+                  className="form-control"
                   name="health_goal"
                   value={healthForm.health_goal}
                   onChange={handleHealthChange}
                 />
               </div>
               
-              <div className="profile-field">
-                <label>Dietary restrictions</label>
-                <div className="profile-pills">
-                  {DIETARY_OPTIONS.map((opt) => (
-                    <button
-                      key={opt.value}
-                      type="button"
-                      className={`profile-pill ${
-                        healthForm.dietary_preference.includes(opt.value) ? "selected" : ""
-                      }`}
-                      onClick={() => toggleDiet(opt.value)}
-                    >
-                      {opt.label}
-                    </button>
-                  ))}
+              <div className="form-group">
+                <label>Dietary Restrictions</label>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {DIETARY_OPTIONS.map((opt) => {
+                    const isSelected = healthForm.dietary_preference.includes(opt.value);
+                    return (
+                      <button
+                        key={opt.value}
+                        type="button"
+                        style={{
+                          padding: '8px 14px',
+                          border: '1px solid',
+                          borderColor: isSelected ? 'var(--color-green-primary)' : 'var(--color-border)',
+                          borderRadius: '100px',
+                          background: isSelected ? 'var(--color-green-primary)' : 'var(--color-white)',
+                          color: isSelected ? 'var(--color-white)' : 'var(--color-slate-medium)',
+                          fontSize: '13px',
+                          fontWeight: '500',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease'
+                        }}
+                        onClick={() => toggleDiet(opt.value)}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
               
               <button 
-                className="profile-submit"
+                className="btn-primary w-full"
                 onClick={handleSaveHealth}
                 disabled={savingHealth}
+                style={{ marginTop: '8px' }}
               >
-                {savingHealth ? "Saving..." : "Save health profile"}
+                {savingHealth ? "Saving..." : "Save Health Profile"}
               </button>
             </div>
-
           </div>
         </div>
       </main>

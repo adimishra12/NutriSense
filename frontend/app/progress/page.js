@@ -88,50 +88,51 @@ export default function ProgressPage() {
       <Sidebar />
       <main className="page-with-sidebar">
         <div className="page-content">
-          <div className="progress-header">
-            <h1 className="progress-title">Progress</h1>
-            <p className="progress-subtitle">
+          <div className="page-header">
+            <h1 className="page-title">Progress</h1>
+            <p className="page-subtitle">
               Track your nutrition improvement over time.
             </p>
           </div>
 
-          <div className="progress-tracker-section">
-            <h2 className="tracker-title">Average risk (lower is better)</h2>
-            <div className="tracker-chart">
-              {historyData.map((item) => (
-                <div key={item.id} className="tracker-bar-container">
-                  <div className="tracker-bar-wrap" title={`Average risk: ${item.average_risk}%`}>
-                    <div 
-                      className="tracker-bar" 
-                      style={{ height: `${item.average_risk}%` }}
-                    ></div>
-                  </div>
-                  <span className="tracker-label">W{item.week}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="progress-history-section">
-            <h2 className="history-title">History</h2>
-            <div className="history-list">
-              {historyData.slice().reverse().map((item) => {
-                const risksText = item.top_risks
-                  .map(r => `<span>${r.nutrient.replace(/_/g, " ")}</span> ${r.percentage}%`)
-                  .join(" &middot; ");
-
-                return (
-                  <div key={item.id} className="history-card">
-                    <div className="history-card-header">
-                      W{item.week} &middot; score {item.wellness_score}%
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '32px' }}>
+            <div className="premium-card">
+              <h2 style={{ fontSize: '18px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>Average risk (lower is better)</h2>
+              <div style={{ display: 'flex', alignItems: 'flex-end', gap: '16px', height: '240px', padding: '16px 0', overflowX: 'auto', scrollbarWidth: 'none' }}>
+                {historyData.map((item) => (
+                  <div key={item.id} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', minWidth: '40px' }}>
+                    <div style={{ height: '180px', width: '24px', background: 'var(--color-cream-darker)', borderRadius: '100px', display: 'flex', alignItems: 'flex-end', overflow: 'hidden' }} title={`Average risk: ${item.average_risk}%`}>
+                      <div 
+                        style={{ width: '100%', background: 'var(--color-green-primary)', height: `${item.average_risk}%`, borderRadius: '100px', transition: 'height 1s ease-out' }}
+                      ></div>
                     </div>
-                    <div 
-                      className="history-card-details"
-                      dangerouslySetInnerHTML={{ __html: risksText }}
-                    ></div>
+                    <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-slate-medium)' }}>W{item.week}</span>
                   </div>
-                );
-              })}
+                ))}
+              </div>
+            </div>
+
+            <div className="premium-card">
+              <h2 style={{ fontSize: '18px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>History</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                {historyData.slice().reverse().map((item) => {
+                  const risksText = item.top_risks
+                    .map(r => `<strong style="color:var(--color-slate-dark);font-weight:600;">${r.nutrient.replace(/_/g, " ")}</strong> ${r.percentage}%`)
+                    .join(" <span style='color:var(--color-slate-light);margin:0 4px;'>|</span> ");
+
+                  return (
+                    <div key={item.id} style={{ padding: '16px', background: 'var(--color-cream-darker)', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
+                      <div style={{ fontSize: '14px', fontWeight: '700', color: 'var(--color-green-dark)', marginBottom: '8px' }}>
+                        W{item.week} <span style={{ color: 'var(--color-slate-light)', margin: '0 8px', fontWeight: '400' }}>|</span> Score {item.wellness_score}%
+                      </div>
+                      <div 
+                        style={{ fontSize: '14px', color: 'var(--color-slate-medium)', lineHeight: 1.5 }}
+                        dangerouslySetInnerHTML={{ __html: risksText }}
+                      ></div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>

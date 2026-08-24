@@ -112,41 +112,53 @@ export default function MealPlan() {
       <Sidebar />
       <main className="page-with-sidebar">
         <div className="page-content">
-          <div className="meal-plan-header">
+          <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
             <div>
-              <h1 className="meal-plan-title">7-day meal plan</h1>
-              <p className="meal-plan-subtitle">
+              <h1 className="page-title">7-Day Meal Plan</h1>
+              <p className="page-subtitle" style={{ margin: 0 }}>
                 Rule-based plan targeting your top deficiencies.
               </p>
-              <p className="meal-plan-focus">
-                Focus: {planData.focus_nutrients.replace(/_/g, " ")} &middot; Diet: {planData.diet_filter}
-              </p>
+              <div style={{ display: 'inline-block', marginTop: '12px', padding: '6px 12px', background: 'var(--color-cream-darker)', borderRadius: '100px', fontSize: '13px', fontWeight: '500', color: 'var(--color-slate-medium)' }}>
+                <span style={{ color: 'var(--color-slate-dark)', fontWeight: '600' }}>Focus:</span> {planData.focus_nutrients.replace(/_/g, " ")} <span style={{ margin: '0 8px', color: 'var(--color-slate-light)' }}>|</span> <span style={{ color: 'var(--color-slate-dark)', fontWeight: '600' }}>Diet:</span> {planData.diet_filter}
+              </div>
             </div>
             <button 
-              className="btn-regenerate" 
+              className="btn-secondary" 
               onClick={handleGenerate} 
               disabled={generating}
             >
-              {generating ? "Regenerating..." : "Regenerate plan"}
+              {generating ? "Regenerating..." : "Regenerate Plan"}
             </button>
           </div>
 
-          <div className="day-tabs">
+          <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '16px', marginBottom: '24px', scrollbarWidth: 'none' }}>
             {DAYS.map((day, index) => (
               <button
                 key={day}
-                className={`day-tab ${index === selectedDayIndex ? "active" : ""}`}
+                style={{ 
+                  padding: '10px 24px', 
+                  borderRadius: '100px', 
+                  border: '1px solid', 
+                  borderColor: index === selectedDayIndex ? 'var(--color-green-primary)' : 'var(--color-border)', 
+                  background: index === selectedDayIndex ? 'var(--color-green-primary)' : 'var(--color-white)', 
+                  color: index === selectedDayIndex ? 'var(--color-white)' : 'var(--color-slate-dark)',
+                  fontSize: '14px',
+                  fontWeight: '600',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  whiteSpace: 'nowrap'
+                }}
                 onClick={() => setSelectedDayIndex(index)}
               >
-                {day.substring(0, 3)}
+                {day}
               </button>
             ))}
           </div>
 
           {dayPlan && (
-            <div className="meal-plan-content">
-              <h2 className="day-title">{dayPlan.day}</h2>
-              <div className="meals-list">
+            <div className="premium-card">
+              <h2 style={{ fontSize: '20px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>{dayPlan.day}</h2>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
                 {["breakfast", "lunch", "snack", "dinner"].map(mealType => {
                   const mealData = dayPlan.meals[mealType];
                   if (!mealData) return null;
@@ -156,11 +168,16 @@ export default function MealPlan() {
                   const foodList = mealData.foods.map(f => `${f.name} (100g)`).join(", ");
                   
                   return (
-                    <div className="meal-item" key={mealType}>
-                      <h3 className="meal-type">{mealType}</h3>
-                      <p className="meal-foods">{foodNames}</p>
-                      <p className="meal-meta">
-                        Targets {mealData.targets.join(", ").replace(/_/g, " ")}. {dataTypes} items: {foodList}.
+                    <div key={mealType} style={{ padding: '16px', background: 'var(--color-cream-darker)', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
+                      <h3 style={{ fontSize: '14px', textTransform: 'capitalize', fontWeight: '700', color: 'var(--color-green-dark)', marginBottom: '8px' }}>
+                        {mealType}
+                      </h3>
+                      <p style={{ fontSize: '16px', fontWeight: '500', color: 'var(--color-slate-dark)', marginBottom: '8px', lineHeight: 1.4 }}>
+                        {foodNames}
+                      </p>
+                      <p style={{ fontSize: '13px', color: 'var(--color-slate-medium)', lineHeight: 1.5, margin: 0 }}>
+                        <strong style={{ color: 'var(--color-slate-dark)' }}>Targets:</strong> {mealData.targets.join(", ").replace(/_/g, " ")} <br/>
+                        <span style={{ color: 'var(--color-slate-light)', fontSize: '12px' }}>{dataTypes} items: {foodList}.</span>
                       </p>
                     </div>
                   );

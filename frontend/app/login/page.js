@@ -80,36 +80,27 @@ export default function Login() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <div className="login-options">
-
-                    <label className="remember">
-
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '16px 0', fontSize: '14px' }}>
+                    <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
                         <input type="checkbox" />
-
-                        Remember Me
-
+                        <span style={{ color: 'var(--color-slate-medium)' }}>Remember Me</span>
                     </label>
 
-                    <Link href="#">
+                    <Link href="#" style={{ color: 'var(--color-green-primary)', fontWeight: '500' }}>
                         Forgot Password?
                     </Link>
-
                 </div>
 
                 <Button
                     text="Login"
                 />
-
             </form>
 
-            <div className="bottom-text">
-
-                Don't have an account?
-
-                <Link href="/signup">
+            <div style={{ marginTop: '32px', textAlign: 'center', fontSize: '15px', color: 'var(--color-slate-medium)' }}>
+                Don't have an account?{' '}
+                <Link href="/signup" style={{ color: 'var(--color-green-primary)', fontWeight: '600' }}>
                     Sign Up
                 </Link>
-
             </div>
 
         </AuthLayout>

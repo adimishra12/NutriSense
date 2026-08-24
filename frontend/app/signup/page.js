@@ -81,27 +81,31 @@ export default function Signup() {
         >
             <form onSubmit={handleSignup}>
 
-                <div className="row">
+                <div style={{ display: 'flex', gap: '16px' }}>
 
-                    <InputField
-                        label="First Name"
-                        type="text"
-                        placeholder="First Name"
-                        icon="user"
-                        value={form.firstName}
-                        onChange={handleChange}
-                        name="firstName"
-                    />
+                    <div style={{ flex: 1 }}>
+                        <InputField
+                            label="First Name"
+                            type="text"
+                            placeholder="First Name"
+                            icon="user"
+                            value={form.firstName}
+                            onChange={handleChange}
+                            name="firstName"
+                        />
+                    </div>
 
-                    <InputField
-                        label="Last Name"
-                        type="text"
-                        placeholder="Last Name"
-                        icon="user"
-                        value={form.lastName}
-                        onChange={handleChange}
-                        name="lastName"
-                    />
+                    <div style={{ flex: 1 }}>
+                        <InputField
+                            label="Last Name"
+                            type="text"
+                            placeholder="Last Name"
+                            icon="user"
+                            value={form.lastName}
+                            onChange={handleChange}
+                            name="lastName"
+                        />
+                    </div>
 
                 </div>
 
@@ -140,9 +144,9 @@ export default function Signup() {
 
             </form>
 
-            <div className="bottom-text">
-                Already have an account?
-                <Link href="/login"> Login</Link>
+            <div style={{ marginTop: '32px', textAlign: 'center', fontSize: '15px', color: 'var(--color-slate-medium)' }}>
+                Already have an account?{' '}
+                <Link href="/login" style={{ color: 'var(--color-green-primary)', fontWeight: '600' }}>Login</Link>
             </div>
 
         </AuthLayout>

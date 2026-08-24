@@ -108,86 +108,90 @@ export default function LabResults() {
       <Sidebar />
       
       <main className="page-with-sidebar">
-        <div className="page-content lr-custom-content">
-          <h1 className="lr-page-title">Lab results</h1>
+        <div className="page-content">
+          <div className="page-header">
+            <h1 className="page-title">Lab Results</h1>
+            <p className="page-subtitle">
+              Enter your recent blood work to personalize your nutritional assessment.
+            </p>
+          </div>
           
-          <div className="lr-card">
-            <div className="lr-row">
-              <div className="lr-field">
+          <div className="premium-card">
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
+              <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                 <label>Hemoglobin (g/dL)</label>
                 <input
                   type="number"
                   step="any"
+                  className="form-control"
                   name="hemoglobin_g_dl"
-                  placeholder=""
                   value={form.hemoglobin_g_dl}
                   onChange={handleChange}
                 />
               </div>
-              <div className="lr-field">
+              <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                 <label>Serum Vitamin D</label>
                 <input
                   type="number"
                   step="any"
+                  className="form-control"
                   name="serum_vitamin_d"
-                  placeholder=""
                   value={form.serum_vitamin_d}
                   onChange={handleChange}
                 />
               </div>
             </div>
 
-            <div className="lr-row">
-              <div className="lr-field">
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '20px' }}>
+              <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                 <label>Ferritin</label>
                 <input
                   type="number"
                   step="any"
+                  className="form-control"
                   name="ferritin"
-                  placeholder=""
                   value={form.ferritin}
                   onChange={handleChange}
                 />
               </div>
-              <div className="lr-field">
+              <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                 <label>Vitamin B12</label>
                 <input
                   type="number"
                   step="any"
+                  className="form-control"
                   name="vitamin_b12"
-                  placeholder=""
                   value={form.vitamin_b12}
                   onChange={handleChange}
                 />
               </div>
             </div>
 
-            <div className="lr-row">
-              <div className="lr-field" style={{ flex: 0.5, paddingRight: '12px' }}>
+            <div style={{ display: 'flex', gap: '16px', marginBottom: '32px' }}>
+              <div className="form-group" style={{ flex: 0.5, marginBottom: 0 }}>
                 <label>Calcium</label>
                 <input
                   type="number"
                   step="any"
+                  className="form-control"
                   name="calcium"
-                  placeholder=""
                   value={form.calcium}
                   onChange={handleChange}
                 />
               </div>
-              {/* Empty div to preserve the 2 column layout for calcium */}
-              <div style={{ flex: 0.5, paddingLeft: '12px' }}></div>
+              <div style={{ flex: 0.5 }}></div>
             </div>
 
-          <button
-            className="lr-submit"
-            onClick={handleSubmit}
-            disabled={submitting}
-          >
-            {submitting ? "Saving…" : "Save labs"}
-          </button>
+            <button
+              className="btn-primary w-full"
+              onClick={handleSubmit}
+              disabled={submitting}
+            >
+              {submitting ? "Saving…" : "Save Labs"}
+            </button>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
     </>
   );
 }

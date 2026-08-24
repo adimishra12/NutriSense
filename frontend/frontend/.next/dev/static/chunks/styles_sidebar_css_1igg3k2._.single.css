@@ -1,67 +1,74 @@
 /* [project]/styles/sidebar.css [app-client] (css) */
 .sidebar {
+  background: var(--color-green-dark);
   z-index: 100;
-  background: #0f172a;
   flex-direction: column;
-  width: 270px;
+  width: 280px;
   height: 100vh;
-  padding: 28px 16px 24px;
+  padding: 32px 24px 24px;
   display: flex;
   position: fixed;
   top: 0;
   left: 0;
+  box-shadow: 4px 0 24px #0000000a;
 }
 
 .sidebar-brand {
-  margin-bottom: 36px;
-  padding: 0 8px;
+  margin-bottom: 48px;
+  padding: 0 12px;
 }
 
 .sidebar-brand h1 {
-  color: #fff;
-  letter-spacing: -.3px;
-  font-size: 26px;
-  font-weight: 800;
+  color: var(--color-white);
+  letter-spacing: -.5px;
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--font-poppins);
 }
 
 .sidebar-username {
-  color: #ffffff8c;
-  margin-top: 4px;
+  color: #ffffffb3;
   font-size: 14px;
   font-weight: 400;
+  font-family: var(--font-geist);
+  margin-top: 6px;
 }
 
 .sidebar-nav {
   flex-direction: column;
   flex: 1;
-  gap: 4px;
+  gap: 8px;
   display: flex;
 }
 
 .sidebar-link {
-  color: #ffffffb3;
+  color: #fffc;
   text-align: left;
   cursor: pointer;
-  background: none;
-  border: none;
-  border-radius: 8px;
   width: 100%;
-  padding: 12px 18px;
   font-size: 15px;
   font-weight: 500;
-  transition: background .2s, color .2s;
-  display: block;
+  font-family: var(--font-geist);
+  background: none;
+  border: none;
+  border-radius: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  transition: all .2s;
+  display: flex;
 }
 
 .sidebar-link:hover {
-  color: #fff;
-  background: #ffffff14;
+  color: var(--color-white);
+  background: #ffffff1a;
+  transform: translateX(4px);
 }
 
 .sidebar-link.active {
-  color: #fff;
-  background: #ffffff24;
+  background: var(--color-green-primary);
+  color: var(--color-white);
   font-weight: 600;
+  box-shadow: 0 4px 12px #0478574d;
 }
 
 .sidebar-footer {
@@ -69,98 +76,102 @@
 }
 
 .sidebar-signout {
-  color: #fff;
-  cursor: pointer;
-  background: none;
-  border: 1px solid #fff3;
-  border-radius: 8px;
   width: 100%;
-  padding: 12px 18px;
+  color: var(--color-white);
+  cursor: pointer;
   font-size: 15px;
   font-weight: 500;
-  transition: background .2s, border-color .2s;
+  font-family: var(--font-geist);
+  background: none;
+  border: 1px solid #fff3;
+  border-radius: 12px;
+  padding: 14px 16px;
+  transition: all .2s;
 }
 
 .sidebar-signout:hover {
-  background: #ffffff14;
-  border-color: #ffffff59;
+  background: #ffffff1a;
+  border-color: #fff6;
 }
 
 .page-with-sidebar {
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  background-color: var(--color-cream);
   min-height: 100vh;
-  margin-left: 270px;
+  margin-left: 280px;
 }
 
 .page-content {
-  max-width: 1600px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 60px;
+  padding: 48px;
 }
 
 .page-title {
-  color: #0f172a;
-  margin-bottom: 4px;
-  font-size: 28px;
+  color: var(--color-slate-dark);
+  font-size: 32px;
   font-weight: 700;
+  font-family: var(--font-poppins);
+  letter-spacing: -.5px;
+  margin-bottom: 8px;
 }
 
 .page-subtitle {
-  color: #6b7280;
-  margin-bottom: 32px;
-  font-size: 15px;
+  color: var(--color-slate-medium);
+  font-size: 16px;
+  font-family: var(--font-geist);
+  margin-bottom: 40px;
 }
 
 @media (max-width: 768px) {
   .sidebar {
+    z-index: 1000;
+    border-top: 1px solid #ffffff1a;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
     width: 100%;
     height: auto;
-    padding: 12px 16px;
-    position: relative;
+    padding: 16px;
+    position: fixed;
+    top: auto;
+    bottom: 0;
   }
 
   .sidebar-brand {
-    margin-bottom: 0;
-  }
-
-  .sidebar-brand h1 {
-    font-size: 18px;
-  }
-
-  .sidebar-username {
     display: none;
   }
 
   .sidebar-nav {
     flex-direction: row;
     flex: 1;
-    justify-content: center;
-    gap: 6px;
+    justify-content: space-around;
+    gap: 4px;
+    padding-bottom: 4px;
+    overflow-x: auto;
   }
 
   .sidebar-link {
-    padding: 8px 12px;
+    white-space: nowrap;
+    border-radius: 20px;
+    padding: 10px 16px;
     font-size: 13px;
+  }
+
+  .sidebar-link:hover {
+    transform: none;
   }
 
   .sidebar-footer {
-    margin-top: 0;
-  }
-
-  .sidebar-signout {
-    padding: 8px 12px;
-    font-size: 13px;
+    display: none;
   }
 
   .page-with-sidebar {
     margin-left: 0;
+    padding-bottom: 80px;
   }
 
   .page-content {
-    padding: 24px 16px;
+    padding: 32px 20px;
   }
 }
 

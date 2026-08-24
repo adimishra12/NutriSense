@@ -1,86 +1,91 @@
 /* =========================
-   ONBOARDING — single-page form
-   Matches reference screenshot:
-   Soft light green/white gradient, minimal design (no card),
-   serif branding, and dense pill-style dietary tags
+   ONBOARDING
 ========================= */
 
-/* ── Page ── */
 .ob-page {
   min-height: 100vh;
-  /* Soft light green/white background instead of solid olive */
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  background: var(--color-cream);
   display: flex;
-  align-items: flex-start; /* Start near upper middle instead of strict center */
+  align-items: center;
   justify-content: center;
-  padding: 8vh 20px 40px;
+  padding: 40px 20px;
 }
 
 .ob-loading {
-  color: #0f172a;
+  color: var(--color-slate-medium);
   font-size: 16px;
-  align-items: center;
 }
 
-/* ── Container (Replaces Card) ── */
 .ob-container {
   width: 100%;
-  max-width: 580px;
-  /* No background, no border, no shadow */
+  max-width: 600px;
+  background: var(--color-white);
+  padding: 48px;
+  border-radius: 24px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-border);
 }
 
-/* ── Header ── */
 .ob-brand {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 18px;
+  font-family: var(--font-poppins);
+  font-size: 16px;
   font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 2px;
-  letter-spacing: -0.2px;
+  color: var(--color-green-primary);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
 }
 
 .ob-title {
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  font-size: 34px;
+  font-family: var(--font-poppins);
+  font-size: 32px;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--color-slate-dark);
   margin-bottom: 8px;
-  line-height: 1.15;
   letter-spacing: -0.5px;
 }
 
 .ob-subtitle {
   font-size: 15px;
-  color: #4b5563; /* muted dark-gray/green */
+  color: var(--color-slate-medium);
   margin-bottom: 32px;
   line-height: 1.5;
 }
 
-/* ── Fields ── */
+.ob-row {
+  display: flex;
+  gap: 16px;
+}
+
+.ob-row > * {
+  flex: 1;
+}
+
 .ob-field {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .ob-field label {
   display: block;
   font-size: 14px;
   font-weight: 600;
-  color: #0f172a;
+  color: var(--color-slate-dark);
   margin-bottom: 8px;
 }
 
 .ob-field input,
 .ob-field select {
   width: 100%;
-  padding: 14px 16px; /* Approx 50px height */
-  border: 1px solid #d1d5db;
-  border-radius: 10px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
   font-size: 15px;
-  color: #111827;
-  background: #fff;
+  color: var(--color-slate-dark);
+  background: var(--color-white);
   outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition: all 0.2s ease;
   appearance: none;
+  font-family: var(--font-geist);
 }
 
 .ob-field input::placeholder {
@@ -89,19 +94,18 @@
 
 .ob-field input:focus,
 .ob-field select:focus {
-  border-color: #0f172a;
-  box-shadow: 0 0 0 3px rgba(26, 58, 42, 0.08);
+  border-color: var(--color-green-light);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .ob-field select {
   cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%231a3a2a' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%230f172a' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 14px center;
-  padding-right: 36px;
+  background-position: right 16px center;
+  padding-right: 40px;
 }
 
-/* Hide arrows for type=number */
 .ob-field input[type="number"]::-webkit-outer-spin-button,
 .ob-field input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -113,99 +117,82 @@
   appearance: textfield;
 }
 
-/* ── Row (side by side fields) ── */
-.ob-row {
-  display: flex;
-  gap: 16px;
-}
-
-.ob-row > * {
-  flex: 1;
-}
-
-/* ── Dietary pills ── */
 .ob-pills {
   display: flex;
-  flex-wrap: nowrap; /* Force one row on desktop */
-  gap: 8px;
-  margin-top: 2px;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .ob-pill {
-  flex: 1; /* Stretch to fit if needed, or let them size naturally */
-  padding: 10px 12px;
-  border: 1px solid #d1d5db;
-  border-radius: 100px;
-  background: #fff;
-  font-size: 13px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  background: var(--color-white);
+  font-size: 14px;
   font-weight: 500;
-  color: #374151;
+  color: var(--color-slate-medium);
   cursor: pointer;
-  transition: all 0.2s;
-  white-space: nowrap;
-  text-align: center;
+  transition: all 0.2s ease;
+  font-family: var(--font-geist);
 }
 
 .ob-pill:hover {
-  border-color: #6b7280;
-  background: #f9fafb;
+  border-color: var(--color-green-light);
+  color: var(--color-green-dark);
+  background: rgba(16, 185, 129, 0.05);
 }
 
 .ob-pill.selected {
-  background: #0f172a;
-  color: #fff;
-  border-color: #0f172a;
+  background: var(--color-green-primary);
+  color: var(--color-white);
+  border-color: var(--color-green-primary);
+  box-shadow: 0 4px 12px rgba(4, 120, 87, 0.2);
 }
 
-/* ── Submit button ── */
 .ob-submit {
   width: 100%;
-  height: 55px; /* Approx 55px height */
-  margin-top: 16px; /* Moderate gap */
+  height: 52px;
+  margin-top: 16px;
   border: none;
-  border-radius: 30px; /* Pill-like corners */
-  background: #0f172a;
-  color: #fff;
+  border-radius: 12px;
+  background: var(--color-green-primary);
+  color: var(--color-white);
   font-size: 16px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  transition: all 0.2s ease;
+  font-family: var(--font-geist);
 }
 
 .ob-submit:hover:not(:disabled) {
-  background: #1e293b;
+  background: var(--color-green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(4, 120, 87, 0.3);
 }
 
 .ob-submit:active:not(:disabled) {
-  transform: scale(0.99);
+  transform: translateY(0);
 }
 
 .ob-submit:disabled {
-  background: #9ca3af;
-  color: #fff;
+  background: var(--color-border);
+  color: var(--color-slate-medium);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-/* ── Responsive ── */
 @media (max-width: 640px) {
   .ob-page {
-    padding: 6vh 16px 30px;
+    padding: 20px 16px;
   }
-
+  .ob-container {
+    padding: 32px 24px;
+  }
   .ob-row {
     flex-direction: column;
     gap: 0;
   }
-
   .ob-title {
-    font-size: 28px;
-  }
-  
-  .ob-pills {
-    flex-wrap: wrap; /* Allow wrapping on small screens */
-  }
-  
-  .ob-pill {
-    flex: auto; /* Let them fill space appropriately */
+    font-size: 26px;
   }
 }

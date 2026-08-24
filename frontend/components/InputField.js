@@ -10,14 +10,16 @@ export default function InputField({
   name,
 }) {
   return (
-    <div className="input-group">
+    <div className="form-group">
       <label>{label}</label>
 
-      <div className="input-box">
-        {icon === "email" && <FaEnvelope className="input-icon" />}
-        {icon === "user" && <FaUser className="input-icon" />}
+      <div style={{ position: 'relative' }}>
+        {icon === "email" && <FaEnvelope style={{ position: 'absolute', top: '15px', left: '16px', color: 'var(--color-slate-light)' }} />}
+        {icon === "user" && <FaUser style={{ position: 'absolute', top: '15px', left: '16px', color: 'var(--color-slate-light)' }} />}
 
         <input
+          className="form-control"
+          style={{ paddingLeft: icon ? '44px' : '16px' }}
           type={type}
           name={name}
           placeholder={placeholder}

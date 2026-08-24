@@ -126,123 +126,135 @@ export default function AssessmentPage() {
       <Sidebar />
       <main className="page-with-sidebar">
         <div className="page-content">
-          {/* ── Header bar ── */}
-          <div className="assess-header">
-            <span className="assess-model-info">
-              {assessment ? `${assessment.diary_days_used} complete diary days used · minimum 4 consecutive required` : "4 consecutive complete diary days required"}
-            </span>
+          <div className="page-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
+            <div>
+              <h1 className="page-title">Assessment</h1>
+              <p className="page-subtitle" style={{ margin: 0 }}>
+                {assessment ? `${assessment.diary_days_used} complete diary days used · minimum 4 consecutive required` : "4 consecutive complete diary days required"}
+              </p>
+            </div>
             <button
-              className="assess-run-btn"
+              className="btn-primary"
               onClick={handleRunAssessment}
               disabled={running}
             >
-              {running ? "Running…" : "Run assessment"}
+              {running ? "Running…" : "Run Assessment"}
             </button>
           </div>
 
-          {/* ── Main content ── */}
           {loadingAssessment ? (
-            <div className="assess-loading">
-              <div className="assess-spinner" />
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '48px', color: 'var(--color-slate-medium)' }}>
+              Loading...
             </div>
           ) : !assessment ? (
-            /* ── Empty state ── */
-            <div className="assess-empty">
-              <div className="assess-empty-icon">🔬</div>
-              <h2>No assessment yet</h2>
-              <p>
+            <div className="empty-state" style={{ maxWidth: '600px', margin: '0 auto' }}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-green-primary)', marginBottom: '16px' }}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <h2 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--color-slate-dark)', marginBottom: '12px' }}>No assessment yet</h2>
+              <p style={{ fontSize: '15px', color: 'var(--color-slate-medium)', marginBottom: '24px', lineHeight: 1.6 }}>
                 Log at least 4 consecutive complete days of meals (Breakfast, Lunch,
-                Snack, Dinner) then click &ldquo;Run assessment&rdquo; to see
-                your deficiency risk analysis.
+                Snack, Dinner) then click "Run Assessment" to see your deficiency risk analysis.
               </p>
               <button
-                className="assess-run-btn"
+                className="btn-primary"
                 onClick={handleRunAssessment}
                 disabled={running}
               >
-                {running ? "Running…" : "Run assessment"}
+                {running ? "Running…" : "Run Assessment"}
               </button>
             </div>
           ) : (
-            /* ── Results layout ── */
-            <div className="assess-body">
+            <div style={{ display: 'flex', gap: '32px', alignItems: 'flex-start' }}>
               {/* ── Left: Deficiency risks ── */}
-              <div className="assess-risks-card">
-                <h2 className="assess-risks-heading">Deficiency risks</h2>
-                <p className="assess-wellness">
-                  Wellness score: <strong>{assessment.overall_score}%</strong>
-                </p>
+              <div className="premium-card" style={{ flex: 1 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>
+                  <h2 style={{ fontSize: '20px', margin: 0 }}>Deficiency Risks</h2>
+                  <div style={{ background: 'rgba(16, 185, 129, 0.1)', padding: '6px 12px', borderRadius: '100px', color: 'var(--color-green-dark)', fontWeight: '600', fontSize: '14px' }}>
+                    Wellness Score: {assessment.overall_score}%
+                  </div>
+                </div>
 
-                <div className="assess-def-list">
-                  {assessment.risks.map((risk) => (
-                    <div
-                      key={risk.nutrient}
-                      className={`assess-def-card ${risk.percentage <= 45 ? "low-risk-disabled" : ""}`}
-                    >
-                      {/* Top row */}
-                      <div className="assess-def-top">
-                        <span className="assess-def-name">
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                  {assessment.risks.map((risk) => {
+                    const pct = Math.min(risk.percentage, 100);
+                    const isLowRisk = pct <= 45;
+                    
+                    let barColor = "var(--color-success)";
+                    let badgeBg = "rgba(16, 185, 129, 0.1)";
+                    let badgeColor = "var(--color-success)";
+                    
+                    if (risk.risk_level.toLowerCase() === "high") {
+                      barColor = "var(--color-danger)";
+                      badgeBg = "rgba(239, 68, 68, 0.1)";
+                      badgeColor = "var(--color-danger)";
+                    } else if (risk.risk_level.toLowerCase() === "moderate") {
+                      barColor = "var(--color-warning)";
+                      badgeBg = "rgba(245, 158, 11, 0.1)";
+                      badgeColor = "var(--color-warning)";
+                    }
+
+                    return (
+                      <div
+                        key={risk.nutrient}
+                        style={{ display: 'flex', alignItems: 'center', gap: '16px', padding: '16px', background: 'var(--color-white)', border: '1px solid var(--color-border)', borderRadius: '12px', opacity: isLowRisk ? 0.6 : 1 }}
+                      >
+                        <span style={{ width: '120px', fontSize: '15px', fontWeight: '600', color: 'var(--color-slate-dark)' }}>
                           {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient}
                         </span>
 
-                        {/* Progress bar */}
-                        <div className="assess-bar-track">
+                        <div style={{ flex: 1, height: '10px', background: 'var(--color-cream-darker)', borderRadius: '100px', overflow: 'hidden' }}>
                           <div
-                            className={`assess-bar-fill ${risk.risk_level.toLowerCase()}`}
-                            style={{ width: `${Math.min(risk.percentage, 100)}%` }}
+                            style={{ width: `${pct}%`, height: '100%', background: barColor, borderRadius: '100px', transition: 'width 1s ease-out' }}
                           />
                         </div>
 
-                        {/* Percentage */}
-                        <span className="assess-def-pct">
-                          {risk.percentage}%
+                        <span style={{ width: '48px', textAlign: 'right', fontSize: '15px', fontWeight: '600', color: 'var(--color-slate-dark)' }}>
+                          {pct}%
                         </span>
 
-                        {/* Badge */}
-                        <span
-                          className={`assess-badge ${risk.risk_level.toLowerCase()}`}
-                        >
+                        <span style={{ width: '80px', textAlign: 'center', padding: '4px 8px', borderRadius: '100px', fontSize: '12px', fontWeight: '600', background: badgeBg, color: badgeColor, textTransform: 'uppercase' }}>
                           {risk.risk_level}
                         </span>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
               {/* ── Right: Recommendation panel ── */}
-              <div style={{ position: "sticky", top: "40px", display: "flex", flexDirection: "column", gap: "16px", width: "320px", minWidth: "280px" }}>
-                <div className="assess-rec-panel" style={{ position: "static", width: "100%", minWidth: "auto", margin: 0 }}>
-                  <h3 className="assess-rec-heading">
-                    Recommended foods
+              <div style={{ width: '340px', display: 'flex', flexDirection: 'column', gap: '16px', position: 'sticky', top: '40px' }}>
+                <div className="premium-card">
+                  <h3 style={{ fontSize: '18px', marginBottom: '20px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>
+                    Recommended Foods
                   </h3>
 
                   {loadingRecs ? (
-                    <div className="assess-loading">
-                      <div className="assess-spinner" />
+                    <div style={{ padding: '20px', textAlign: 'center', color: 'var(--color-slate-medium)' }}>
+                      Loading recommendations...
                     </div>
                   ) : Object.keys(recommendationsMap).length === 0 ? (
-                    <p style={{ color: "#6b7280", fontSize: 14 }}>
-                      No high-risk nutrients detected.
-                    </p>
+                    <div className="empty-state" style={{ padding: '20px', border: 'none', background: 'var(--color-cream-darker)' }}>
+                      <p style={{ fontSize: '14px', margin: 0 }}>No high-risk nutrients detected.</p>
+                    </div>
                   ) : (
-                    <div className="assess-rec-list" style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
                       {assessment.risks.filter((r) => r.percentage > 45).map((risk) => (
                         <div key={risk.nutrient}>
-                          <h4 style={{ fontSize: 14, fontWeight: 700, color: "#0f172a", marginBottom: 12, borderBottom: "1px solid #e5e7eb", paddingBottom: 8 }}>
+                          <h4 style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-slate-dark)', marginBottom: '12px' }}>
                             {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient}
                           </h4>
                           {recommendationsMap[risk.nutrient]?.length === 0 ? (
-                            <p style={{ color: "#6b7280", fontSize: 13 }}>No foods found.</p>
+                            <p style={{ color: "var(--color-slate-light)", fontSize: '13px' }}>No foods found.</p>
                           ) : (
-                            recommendationsMap[risk.nutrient]?.map((food) => (
-                              <div key={food.id} className="assess-rec-row">
-                                <span className="assess-rec-name">{food.name}</span>
-                                <span className="assess-rec-nutrients">
-                                  {NUTRIENT_DISPLAY[risk.nutrient] || risk.nutrient} {food.nutrient_value}
-                                </span>
-                              </div>
-                            ))
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                              {recommendationsMap[risk.nutrient]?.map((food) => (
+                                <div key={food.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 12px', background: 'var(--color-cream-darker)', borderRadius: '8px', fontSize: '13px' }}>
+                                  <span style={{ fontWeight: '500', color: 'var(--color-slate-dark)' }}>{food.name}</span>
+                                  <span style={{ color: 'var(--color-green-dark)', fontWeight: '600' }}>
+                                    {food.nutrient_value}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
                           )}
                         </div>
                       ))}
@@ -250,13 +262,12 @@ export default function AssessmentPage() {
                   )}
                 </div>
                 
-                {/* ── Generate Meal Plan Button ── */}
                 <button 
-                  className="assess-run-btn" 
-                  style={{ width: "100%", padding: "14px", boxShadow: "0 2px 12px rgba(0, 0, 0, 0.06)" }}
+                  className="btn-primary" 
+                  style={{ width: "100%", padding: "16px", fontSize: '16px' }}
                   onClick={() => router.push("/meal-plan")}
                 >
-                  Generate 7 days meal plan
+                  Generate 7-Day Meal Plan
                 </button>
               </div>
             </div>

@@ -13,14 +13,15 @@ export default function PasswordInput({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className="input-group">
+    <div className="form-group">
       <label>{label}</label>
 
-      <div className="input-box">
-        <FaLock className="input-icon" />
+      <div style={{ position: 'relative' }}>
+        <FaLock style={{ position: 'absolute', top: '15px', left: '16px', color: 'var(--color-slate-light)' }} />
 
         <input
-          className="password-input"
+          className="form-control"
+          style={{ paddingLeft: '44px', paddingRight: '44px' }}
           type={showPassword ? "text" : "password"}
           placeholder={placeholder}
           name={name}
@@ -30,7 +31,7 @@ export default function PasswordInput({
         />
 
         <span
-          className="eye-btn"
+          style={{ position: 'absolute', top: '15px', right: '16px', color: 'var(--color-slate-light)', cursor: 'pointer' }}
           onClick={() => setShowPassword(!showPassword)}
         >
           {showPassword ? <FaEyeSlash /> : <FaEye />}

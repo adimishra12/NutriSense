@@ -8,11 +8,10 @@ export default function Button({
         <button
             type="submit"
             disabled={disabled}
-            className="primary-btn"
+            className="btn-primary w-full"
+            style={{ marginTop: '16px', opacity: disabled ? 0.6 : 1 }}
         >
-
             {text}
-
         </button>
 
     );

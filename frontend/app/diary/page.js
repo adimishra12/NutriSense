@@ -156,46 +156,48 @@ export default function Diary() {
       <Sidebar />
       <main className="page-with-sidebar">
         <div className="page-content">
-          <h1 className="page-title">Food diary</h1>
-          <p className="page-subtitle">
-            Search foods and log portions — nutrients computed automatically.
-          </p>
+          <div className="page-header">
+            <h1 className="page-title">Food Diary</h1>
+            <p className="page-subtitle">
+              Search foods and log portions — nutrients computed automatically.
+            </p>
+          </div>
 
-          <div className="diary-grid">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px' }}>
             {/* ── Log meal form ── */}
-            <div className="diary-card">
-              <h2 className="diary-card-title">Log meal</h2>
+            <div className="premium-card">
+              <h2 style={{ fontSize: '20px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>Log Meal</h2>
 
-              {/* Date */}
-              <div className="diary-field">
+              <div className="form-group">
                 <label>Date</label>
                 <input
                   type="date"
+                  className="form-control"
                   value={date}
                   onChange={(e) => setDate(e.target.value)}
                 />
               </div>
 
-              {/* Meal type */}
-              <div className="diary-field">
-                <label>Meal</label>
+              <div className="form-group">
+                <label>Meal Type</label>
                 <select
+                  className="form-control"
                   value={mealType}
                   onChange={(e) => setMealType(e.target.value)}
                 >
                   <option value="breakfast">Breakfast</option>
                   <option value="lunch">Lunch</option>
-                  <option value="dinner">Dinner</option>
                   <option value="snack">Snack</option>
+                  <option value="dinner">Dinner</option>
                 </select>
               </div>
 
-              {/* Food search */}
-              <div className="diary-field diary-search-wrapper" ref={dropdownRef}>
-                <label>Search food</label>
+              <div className="form-group" style={{ position: 'relative' }} ref={dropdownRef}>
+                <label>Search Food</label>
                 <input
                   type="text"
-                  placeholder="Type to search — dal, palak, chawal, paneer..."
+                  className="form-control"
+                  placeholder="e.g., Apple, Dal, Rice..."
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
@@ -207,17 +209,17 @@ export default function Diary() {
                 />
 
                 {showDropdown && (
-                  <div className="diary-dropdown">
+                  <div style={{ position: 'absolute', top: '100%', left: 0, right: 0, background: 'var(--color-white)', border: '1px solid var(--color-border)', borderRadius: '12px', marginTop: '8px', zIndex: 50, boxShadow: 'var(--shadow-lg)', maxHeight: '300px', overflowY: 'auto' }}>
                     {searchResults.map((food) => (
                       <button
                         key={food.id}
-                        className="diary-dropdown-item"
-                        onClick={() => selectFood(food)}
                         type="button"
+                        style={{ width: '100%', padding: '12px 16px', textAlign: 'left', background: 'transparent', border: 'none', borderBottom: '1px solid var(--color-border)', cursor: 'pointer', display: 'flex', flexDirection: 'column', gap: '4px' }}
+                        onClick={() => selectFood(food)}
                       >
-                        <span className="diary-food-name">{food.name}</span>
-                        <span className="diary-food-meta">
-                          {food.source === "ifct" ? "IFCT 2017 (India)" : "USDA FoodData Central"} • Standard 100g serving
+                        <span style={{ fontSize: '15px', fontWeight: '500', color: 'var(--color-slate-dark)' }}>{food.name}</span>
+                        <span style={{ fontSize: '12px', color: 'var(--color-slate-light)' }}>
+                          {food.source === "ifct" ? "IFCT 2017" : "USDA"} • 100g
                         </span>
                       </button>
                     ))}
@@ -225,11 +227,11 @@ export default function Diary() {
                 )}
               </div>
 
-              {/* Portion */}
-              <div className="diary-field">
+              <div className="form-group">
                 <label>Portion (grams)</label>
                 <input
                   type="number"
+                  className="form-control"
                   min="1"
                   step="1"
                   value={portion}
@@ -237,57 +239,77 @@ export default function Diary() {
                 />
               </div>
 
-              {/* Submit */}
               <button
-                className="diary-submit"
+                className="btn-primary w-full"
                 onClick={handleSubmit}
                 disabled={submitting || !selectedFood}
+                style={{ marginTop: '16px' }}
               >
                 {submitting ? "Adding…" : "Add to diary"}
               </button>
             </div>
 
             {/* ── Entries panel ── */}
-            <div className="diary-card">
-              <h2 className="diary-card-title">Entries on {date}</h2>
+            <div className="premium-card">
+              <h2 style={{ fontSize: '20px', marginBottom: '24px', paddingBottom: '16px', borderBottom: '1px solid var(--color-border)' }}>Entries on {date}</h2>
 
               {entries.length === 0 ? (
-                <p className="diary-empty">No meals logged this day.</p>
+                <div className="empty-state">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--color-slate-light)', marginBottom: '16px' }}><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  <h3 style={{ fontSize: '16px', fontWeight: '600', color: 'var(--color-slate-dark)', marginBottom: '8px' }}>No meals logged</h3>
+                  <p style={{ fontSize: '14px', color: 'var(--color-slate-medium)' }}>
+                    Start by searching and adding your breakfast.
+                  </p>
+                </div>
               ) : (
-                <div className="diary-entries">
-                  {entries.map((entry) => (
-                    <div className="diary-entry" key={entry.id}>
-                      <div className="diary-entry-header">
-                        <span className="diary-entry-food">
-                          {entry.food_name}
-                        </span>
-                        <div className="diary-entry-actions">
-                          <span className="diary-entry-meal">
-                            {entry.meal_type}
-                          </span>
-                          <button
-                            onClick={() => handleDelete(entry.id)}
-                            className="diary-entry-delete"
-                            title="Delete entry"
-                          >
-                            ✕
-                          </button>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                  {["breakfast", "lunch", "snack", "dinner", "other"].map((mealGroup) => {
+                    const mealEntries = entries.filter(e => {
+                      const type = String(e.meal_type).toLowerCase().trim();
+                      if (mealGroup === "other") {
+                        return !["breakfast", "lunch", "snack", "dinner"].includes(type);
+                      }
+                      return type === mealGroup;
+                    });
+                    
+                    if (mealEntries.length === 0) return null;
+
+                    return (
+                      <div key={mealGroup}>
+                        <h3 style={{ fontSize: '14px', textTransform: 'capitalize', fontWeight: '600', color: 'var(--color-slate-medium)', marginBottom: '12px' }}>{mealGroup === "other" ? "Other Meals" : mealGroup}</h3>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                          {mealEntries.map((entry) => (
+                            <div key={entry.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '12px 16px', background: 'var(--color-cream-darker)', borderRadius: '12px', border: '1px solid var(--color-border)' }}>
+                              <div>
+                                <span style={{ fontSize: '15px', fontWeight: '500', color: 'var(--color-slate-dark)', display: 'block', marginBottom: '4px' }}>
+                                  {entry.food_name}
+                                </span>
+                                <div style={{ fontSize: '13px', color: 'var(--color-slate-light)', display: 'flex', gap: '12px' }}>
+                                  <span>{entry.portion_grams}g</span>
+                                  <span>{entry.calories} kcal</span>
+                                  <span>{entry.protein_g}g protein</span>
+                                </div>
+                              </div>
+                              <button
+                                onClick={() => handleDelete(entry.id)}
+                                style={{ background: 'transparent', border: 'none', color: 'var(--color-slate-light)', cursor: 'pointer', padding: '8px' }}
+                                title="Delete entry"
+                              >
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                              </button>
+                            </div>
+                          ))}
                         </div>
                       </div>
-                      <div className="diary-entry-details">
-                        <span>{entry.portion_grams}g</span>
-                        <span>{entry.calories} cal</span>
-                        <span>{entry.protein_g}g protein</span>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               )}
             </div>
           </div>
           
-          <div style={{ marginTop: "24px", fontSize: "12px", color: "#6b7280", textAlign: "center" }}>
-            Nutrition data: IFCT 2017 (Indian Food Composition Tables) / USDA FoodData Central
+          <div style={{ marginTop: "32px", fontSize: "13px", color: "var(--color-slate-light)", textAlign: "center" }}>
+            Nutrition data: IFCT 2017 / USDA FoodData Central
           </div>
         </div>
       </main>
