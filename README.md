@@ -329,7 +329,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES=1440
 ## 👤 Author & Acknowledgments
 
 - **Lead Developer**: [Aditya Mishra](https://github.com/adimishra12)
-- **Institution / Internship**: Springboard Internship 2026
 - **Data Acknowledgments**:
   - CDC National Health and Nutrition Examination Survey (NHANES)
   - Indian Council of Medical Research (ICMR) & National Institute of Nutrition (NIN) — Indian Food Composition Tables (IFCT)
