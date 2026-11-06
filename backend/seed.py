@@ -7,7 +7,7 @@ BASE_URL = "http://127.0.0.1:8000"
 def seed_data():
     print("Seeding data for mentor presentation...")
     email = f"mentor_test_{random.randint(1000, 9999)}@example.com"
-    password = "password123"
+    password = "Test@1234!"
 
     # 1. Signup
     print(f"Signing up with {email}...")

@@ -11,7 +11,6 @@ export default function Home() {
   const { user, token, isLoading } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle transparent to solid navbar transition on scroll
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -51,7 +50,6 @@ export default function Home() {
 
   return (
     <div className="landing-page">
-      {/* ── NAVBAR ── */}
       <nav className="landing-nav" style={navStyle}>
         <div className="container nav-content">
           <div className="nav-logo" style={{ fontSize: "20px" }}>AI-Based Nutritional Assessment System</div>
