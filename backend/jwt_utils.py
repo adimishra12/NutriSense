@@ -1,5 +1,5 @@
 from datetime import datetime, timedelta, timezone
-
+import os
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
@@ -9,7 +9,10 @@ from database import get_db
 from models import User
 
 # ── Config ──────────────────────────────────────────
-SECRET_KEY = "nutrisense-dev-secret-key-change-in-production"
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+if not SECRET_KEY:
+    raise ValueError("SECRET_KEY environment variable is not configured")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 30 # 30 days for testing
 
