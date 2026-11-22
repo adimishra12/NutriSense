@@ -1,13 +1,17 @@
-import os
+
+from pathlib import Path
+
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-# Ensure data directory exists and point directly to the database file
-DB_DIR = os.path.join(os.path.dirname(__file__), "data")
-os.makedirs(DB_DIR, exist_ok=True)
-DB_PATH = os.path.abspath(os.path.join(DB_DIR, "nutrisense.db"))
+# Get the absolute path of the backend folder
+BASE_DIR = Path(__file__).resolve().parent
 
-DATABASE_URL = f"sqlite:///{DB_PATH}"
+# Database location: backend/data/nutrisense.db
+DATA_DIR = BASE_DIR / "data"
+DATA_DIR.mkdir(parents=True, exist_ok=True)
+
+DATABASE_URL = f"sqlite:///{DATA_DIR / 'nutrisense.db'}"
 
 engine = create_engine(
     DATABASE_URL,
