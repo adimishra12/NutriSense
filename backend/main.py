@@ -18,7 +18,7 @@ Base.metadata.create_all(bind=engine)
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://nutri-sense-nu.vercel.app"],
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000", "https://nutri-sense-nu.vercel.app", "https://nutri-sense-git-main-project-74fc.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
